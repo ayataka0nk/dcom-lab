@@ -3,5 +3,14 @@ export const config = {
 }
 
 export default function Home() {
-  return <div>Hello,World!</div>
+  return (
+    <div>
+      <div className="title">ブログタイトル</div>
+      <style jsx>{`
+        .title {
+          color: grey;
+        }
+      `}</style>
+    </div>
+  )
 }
