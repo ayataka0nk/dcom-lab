@@ -5,7 +5,7 @@ import matter from "gray-matter"
 import fs from "fs"
 
 import { formatDate } from "./date"
-const DIR = path.join(process.cwd(), "content/posts")
+const DIR = path.join(process.cwd(), "public/posts")
 const EXTENSION = ".md"
 
 const listContentFiles = () => {
