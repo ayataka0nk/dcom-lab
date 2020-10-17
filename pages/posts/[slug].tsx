@@ -1,11 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import path from "path"
-import { listContentFiles, readContentFile } from "../../libs/content-loader"
+import { listContentDirs, readContentFile } from "../../libs/content-loader"
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const paths = (await listContentFiles()).map((filename) => ({
+  const paths = listContentDirs().map((dirname) => ({
     params: {
-      slug: path.parse(filename).name,
+      slug: path.parse(dirname).name,
     },
   }))
   return {
