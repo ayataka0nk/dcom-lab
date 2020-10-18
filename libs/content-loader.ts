@@ -1,11 +1,18 @@
 import path from "path"
 
+import {
+  makeImagePathReplacer,
+  htmlAmpConverter,
+} from "../libs/unified-atatcher"
 import matter from "gray-matter"
 import fs from "fs"
 import rehypeStringify from "rehype-stringify"
 import unified from "unified"
 import remarkParse from "remark-parse"
 import remarkToRehype from "remark-rehype"
+import rehypeRaw from "rehype-raw"
+
+const md = require("markdown-it")({ html: true })
 
 import { formatDate } from "./date"
 const DIR = path.join(process.cwd(), "posts")
@@ -16,45 +23,6 @@ const listContentDirs = () => {
   return dirents
     .filter((dirent) => !dirent.isFile())
     .map((dirent) => dirent.name)
-}
-
-const convertCode = (node, parentNode, index, dirName) => {
-  if (node.tagName === "img") {
-    let src: string = node.properties.src
-    if (src.slice(0, 2) === "./") {
-      src = src.slice(2)
-    }
-    src = src.replace("images/", "/articleImages/" + dirName + "/")
-    node.properties.src = src
-  }
-}
-
-const makeImagePathReplacer = (dirName: string) => {
-  return () => {
-    return function (node, vfile, next) {
-      try {
-        visit(convertCode, node, null, 0, dirName)
-        next()
-      } catch (err) {
-        next(err)
-      }
-    }
-  }
-}
-
-// hastの要素を訪問する関数
-function visit(visitor, node, parentNode, index, dirName) {
-  if (visitor(node, parentNode, index, dirName)) {
-    return
-  }
-
-  if (!node.children) {
-    return
-  }
-
-  for (let i = 0; i < node.children.length; i++) {
-    visit(visitor, node.children[i], node, i, dirName)
-  }
 }
 
 const readContentFile = async ({
@@ -71,11 +39,12 @@ const readContentFile = async ({
   const raw = fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
   const matterResult = matter(raw)
   const { title, published: rawPublished } = matterResult.data
-  //markdown -> mdhtml
   const processer = unified()
     .use(remarkParse)
-    .use(remarkToRehype)
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
     .use(makeImagePathReplacer(slug))
+    .use(htmlAmpConverter)
     .use(rehypeStringify)
   const parsedContent = await processer.process(matterResult.content)
   const content = parsedContent.toString()
