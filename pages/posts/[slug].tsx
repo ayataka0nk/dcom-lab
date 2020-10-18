@@ -49,6 +49,9 @@ const Article: React.FC<{ content: string }> = (props) => {
           color: red;
         }
       `}</style>
+      <style jsx global>
+        {resetStyles}
+      </style>
     </div>
   )
 }
