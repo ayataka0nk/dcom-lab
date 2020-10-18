@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import path from "path"
 import { listContentDirs, readContentFile } from "../../libs/content-loader"
 import { resetStyles } from "../..//css/reset"
+import { GithubMarkdownStyles } from "../../css/GithubMarkdownStyles"
 
 export const config = {
   amp: true,
@@ -51,6 +52,9 @@ const Article: React.FC<{ content: string }> = (props) => {
       `}</style>
       <style jsx global>
         {resetStyles}
+      </style>
+      <style jsx global>
+        {GithubMarkdownStyles}
       </style>
     </div>
   )
