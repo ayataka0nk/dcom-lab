@@ -11,10 +11,12 @@ import unified from "unified"
 import remarkParse from "remark-parse"
 import remarkToRehype from "remark-rehype"
 import rehypeRaw from "rehype-raw"
+import htmlToText from "html-to-text"
 
 const md = require("markdown-it")({ html: true })
 
 import { formatDate } from "./date"
+import { stringify } from "remark"
 const DIR = path.join(process.cwd(), "posts")
 const ARTICLE_FILE_NAME = "article.md"
 
@@ -55,4 +57,55 @@ const readContentFile = async ({
     slug,
   }
 }
-export { listContentDirs, readContentFile }
+
+export type Summary = {
+  title: string
+  published: string
+  tags: string[]
+  summaryText: string
+  path: string
+}
+
+type MatterResultData = {
+  title: string
+  published: Date
+  tags: string
+}
+
+const readSummary = async (slug: string) => {
+  const raw = fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
+  const matterResult = matter(raw)
+  const { title, published: rawPublished, tags: tagsStr } = <MatterResultData>(
+    matterResult.data
+  )
+
+  const processer = unified()
+    .use(remarkParse)
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypeStringify)
+  const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
+  const parsedContent = await processer.process(matterResult.content)
+  const content = parsedContent.toString()
+  const decodedHtml = content.replace(/&#x3C;/g, "<")
+  const text = htmlToText.fromString(decodedHtml)
+  const summaryText = text.substr(0, 120)
+  const postPath = path.join("/posts/" + slug)
+  return {
+    title,
+    published: formatDate(rawPublished),
+    tags,
+    summaryText,
+    path: postPath,
+  }
+}
+
+const readSummaries = async (): Promise<Summary[]> => {
+  const slugs = listContentDirs()
+  const summaries: Summary[] = []
+  for (const slug of slugs) {
+    summaries.push(await readSummary(slug))
+  }
+  return summaries
+}
+
+export { listContentDirs, readContentFile, readSummaries }

@@ -1,6 +1,7 @@
 ---
 title: タイトル
 published: 2020-10-17
+tags: foo,bar
 ---
 
 # マークダウンサンプル記事
