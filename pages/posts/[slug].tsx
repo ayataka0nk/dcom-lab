@@ -3,6 +3,7 @@ import path from "path"
 import { listContentDirs, readContentFile } from "../../libs/content-loader"
 import { resetStyles } from "../..//css/reset"
 import { GithubMarkdownStyles } from "../../css/GithubMarkdownStyles"
+import { Layout } from "../../components/Layout"
 
 export const config = {
   amp: true,
@@ -62,12 +63,12 @@ const Article: React.FC<{ content: string }> = (props) => {
 
 const Post: NextPage<SlugProps> = (props) => {
   return (
-    <div>
+    <Layout>
       <h1>hoge</h1>
       <div>{props.title} </div>
       <div>{props.published}</div>
       <Article content={props.content} />
-    </div>
+    </Layout>
   )
 }
 

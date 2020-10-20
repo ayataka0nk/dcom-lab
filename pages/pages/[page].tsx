@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { readSummaries, Summary } from "../../libs/content-loader"
 import { ArticleCard } from "../../components/ArticleCard"
+import { Layout } from "../../components/Layout"
 
 export const config = {
   amp: true,
@@ -31,25 +32,32 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const Page: NextPage<{ summaries: Summary[] }> = (props) => {
   return (
-    <div className="root">
-      {props.summaries.map((summary) => {
-        return (
-          <ArticleCard
-            title={summary.title}
-            published={summary.published}
-            tags={summary.tags}
-            summaryText={summary.summaryText}
-            path={summary.path}
-          />
-        )
-      })}
+    <Layout>
+      <div className="root">
+        {props.summaries.map((summary) => {
+          return (
+            <div className="article-card-box">
+              <ArticleCard
+                title={summary.title}
+                published={summary.published}
+                tags={summary.tags}
+                summaryText={summary.summaryText}
+                path={summary.path}
+              />
+            </div>
+          )
+        })}
+      </div>
       <style jsx>{`
         .root {
+          max-width: 900px;
           box-sizing: border-box;
-          padding: 30px;
+        }
+        .article-card-box {
+          padding: 20px 0px;
         }
       `}</style>
-    </div>
+    </Layout>
   )
 }
 
