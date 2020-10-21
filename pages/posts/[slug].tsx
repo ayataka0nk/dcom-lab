@@ -5,6 +5,7 @@ import { resetStyles } from "../..//css/reset"
 import { GithubMarkdownStyles } from "../../css/GithubMarkdownStyles"
 import { Layout } from "../../components/Layout"
 import { ArticleTags } from "../../components/article"
+import { ArticleDate } from "../../components/article/ArticleDate"
 
 export const config = {
   amp: true,
@@ -63,16 +64,23 @@ const Article: React.FC<{
 }
 
 const Post: NextPage<SlugProps> = (props) => {
+  const [year, month, day] = props.published.split("/")
   return (
     <Layout>
-      <div className="title">{props.title}</div>
-      <div>{props.published}</div>
+      <div className="header">
+        <div className="title">{props.title}</div>
+        <ArticleDate year={year} month={month} day={day} />
+      </div>
+
       <ArticleTags tags={props.tags} />
       <Article content={props.content} />
       <style jsx>{`
+        .header {
+          display: flex;
+        }
         .title {
-          line-height: 70px;
           font-size: 38px;
+          line-height: 70px;
           color: #4999a1;
           text-decoration: underline;
         }

@@ -1,5 +1,6 @@
 import Link from "next/link"
 import React from "react"
+import { ArticleDate } from "./ArticleDate"
 import { ArticleTags } from "./ArticleTags"
 
 export const ArticleCard: React.FC<{
@@ -13,12 +14,7 @@ export const ArticleCard: React.FC<{
   return (
     <div className="root">
       <div className="published">
-        <div className="published-block">
-          <div className="day">{day}</div>
-          <div className="month-year">
-            {month}月 {year}
-          </div>
-        </div>
+        <ArticleDate year={year} month={month} day={day} />
       </div>
 
       <header>
@@ -41,19 +37,6 @@ export const ArticleCard: React.FC<{
         }
         .published {
           text-align: right;
-        }
-        .published-block {
-          display: inline-block;
-          color: #777;
-          text-align: center;
-        }
-        .day {
-          font-size: 24px;
-          line-height: 25px;
-        }
-        .month-year {
-          font-size: 10px;
-          line-height: 11px;
         }
         .text {
           box-sizing: border-box;
