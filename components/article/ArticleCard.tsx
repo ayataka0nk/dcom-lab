@@ -1,5 +1,6 @@
 import Link from "next/link"
 import React from "react"
+import { ArticleTags } from "./ArticleTags"
 
 export const ArticleCard: React.FC<{
   title: string
@@ -25,17 +26,7 @@ export const ArticleCard: React.FC<{
           <a className="title-link">{props.title}</a>
         </Link>
       </header>
-      <div className="tags">
-        <amp-img src="/images/icon-tag.svg" height="15px" width="15px" />
-
-        <div className="tag-header">tags:</div>
-        {props.tags.map((tag, index) => (
-          <React.Fragment key={index}>
-            <div className="tag">{tag}</div>
-            {index === props.tags.length - 1 || <div>, </div>}
-          </React.Fragment>
-        ))}
-      </div>
+      <ArticleTags tags={props.tags} />
       <div className="text">
         {props.summaryText}...
         <Link href={props.path}>
@@ -95,20 +86,6 @@ export const ArticleCard: React.FC<{
         .icon-tag {
           height: 10px;
           width: 10px;
-        }
-        .tag-header {
-          margin: 0px 5px 0px 2px;
-        }
-        .tags {
-          font-size: 11px;
-          color: #777;
-          display: flex;
-          align-items: center;
-        }
-        .tag {
-          background-color: #4999a1;
-          color: #ffffff;
-          padding: 0px 3px;
         }
       `}</style>
     </div>

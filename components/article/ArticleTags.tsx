@@ -7,13 +7,14 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
       <div className="tag-header">tags:</div>
       {props.tags.map((tag, index) => (
         <React.Fragment key={index}>
-          <div className="tag">{tag}</div>
-          {index === props.tags.length - 1 || <div>, </div>}
+          <a className="tag">{tag}</a>
+          {index === props.tags.length - 1 || <span className="comma">,</span>}
         </React.Fragment>
       ))}
       <style jsx>
         {`
           .tags {
+            box-sizing: border-box;
             font-size: 11px;
             color: #777;
             display: flex;
@@ -25,7 +26,11 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
           .tag {
             background-color: #4999a1;
             color: #ffffff;
-            padding: 0px 3px;
+            padding: 3px 2px;
+            vertical-align: bottom;
+          }
+          .comma {
+            margin-right: 2px;
           }
         `}
       </style>

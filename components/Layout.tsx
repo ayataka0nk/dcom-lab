@@ -2,6 +2,7 @@ import React from "react"
 import { Header } from "./Header"
 import { Navigation } from "./Navigation"
 import { TopLine } from "./TopLine"
+import { resetStyles } from "../css/reset"
 
 export const Layout: React.FC = (props) => {
   return (
@@ -36,6 +37,9 @@ export const Layout: React.FC = (props) => {
             padding: 0px 20px;
           }
         `}
+      </style>
+      <style jsx global>
+        {resetStyles}
       </style>
     </div>
   )

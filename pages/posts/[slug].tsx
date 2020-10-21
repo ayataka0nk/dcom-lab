@@ -4,6 +4,7 @@ import { listContentDirs, readContentFile } from "../../libs/content-loader"
 import { resetStyles } from "../..//css/reset"
 import { GithubMarkdownStyles } from "../../css/GithubMarkdownStyles"
 import { Layout } from "../../components/Layout"
+import { ArticleTags } from "../../components/article"
 
 export const config = {
   amp: true,
@@ -23,6 +24,7 @@ type SlugProps = {
   title: string
   published: string
   content: string
+  tags: string[]
 }
 
 export const getStaticProps: GetStaticProps<
@@ -65,6 +67,7 @@ const Post: NextPage<SlugProps> = (props) => {
     <Layout>
       <div className="title">{props.title}</div>
       <div>{props.published}</div>
+      <ArticleTags tags={props.tags} />
       <Article content={props.content} />
       <style jsx>{`
         .title {

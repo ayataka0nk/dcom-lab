@@ -1,7 +1,7 @@
 ---
 title: サンプル1
 published: 2020-10-17
-tags: foo,bar
+tags: IIS,Webサーバ,ツール
 ---
 
 # マークダウンサンプル記事
