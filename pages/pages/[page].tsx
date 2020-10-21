@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import { readSummaries, Summary } from "../../libs/content-loader"
-import { ArticleCard } from "../../components/ArticleCard"
+import { ArticleCard } from "../../components/article"
 import { Layout } from "../../components/Layout"
 
 export const config = {
