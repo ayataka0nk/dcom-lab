@@ -17,6 +17,7 @@ const md = require("markdown-it")({ html: true })
 
 import { formatDate } from "./date"
 import { stringify } from "remark"
+import { headerRemover } from "./unified-atatcher/HeaderRemover"
 const DIR = path.join(process.cwd(), "posts")
 const ARTICLE_FILE_NAME = "article.md"
 
@@ -33,6 +34,7 @@ const markdownToAmpHtml = async (slug: string, markdown: string) => {
     .use(remarkToRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(makeImagePathReplacer(slug))
+    .use(headerRemover)
     .use(htmlAmpConverter)
     .use(rehypeStringify)
   const parsedContent = await processer.process(markdown)
