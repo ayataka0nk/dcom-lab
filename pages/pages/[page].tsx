@@ -54,7 +54,7 @@ const Page: NextPage<{ summaries: Summary[] }> = (props) => {
           box-sizing: border-box;
         }
         .article-card-box {
-          padding: 20px 0px;
+          padding: 0 0 40px 0;
         }
       `}</style>
     </Layout>
