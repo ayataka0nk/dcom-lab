@@ -84,9 +84,11 @@ const Post: NextPage<SlugProps> = (props) => {
           line-height: 70px;
           color: #4999a1;
           text-decoration: underline;
+          flex: 1;
         }
         .tags {
           margin-bottom: 20px;
+          flex: none;
         }
       `}</style>
     </Layout>
