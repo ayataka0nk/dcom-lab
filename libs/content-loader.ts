@@ -27,7 +27,7 @@ const listContentDirs = () => {
     .map((dirent) => dirent.name)
 }
 
-const markdownToHtml = async (slug: string, markdown: string) => {
+const markdownToAmpHtml = async (slug: string, markdown: string) => {
   const processer = unified()
     .use(remarkParse)
     .use(remarkToRehype, { allowDangerousHtml: true })
@@ -56,7 +56,7 @@ const readContentFile = async ({
   const matterResult = matter(raw)
   const { title, published: rawPublished, tags: tagsStr } = matterResult.data
   const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
-  const parsedContent = await markdownToHtml(slug, matterResult.content)
+  const parsedContent = await markdownToAmpHtml(slug, matterResult.content)
   return {
     title,
     published: formatDate(rawPublished),
@@ -87,7 +87,7 @@ const readSummary = async (slug: string) => {
     matterResult.data
   )
   const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
-  const html = await markdownToHtml(slug, matterResult.content)
+  const html = await markdownToAmpHtml(slug, matterResult.content)
   const text = htmlToText.fromString(html)
   const summaryText = text.substr(0, 120)
   const postPath = path.join("/posts/" + slug)
