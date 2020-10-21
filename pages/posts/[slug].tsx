@@ -71,8 +71,9 @@ const Post: NextPage<SlugProps> = (props) => {
         <div className="title">{props.title}</div>
         <ArticleDate year={year} month={month} day={day} />
       </div>
-
-      <ArticleTags tags={props.tags} />
+      <div className="tags">
+        <ArticleTags tags={props.tags} />
+      </div>
       <Article content={props.content} />
       <style jsx>{`
         .header {
@@ -83,6 +84,9 @@ const Post: NextPage<SlugProps> = (props) => {
           line-height: 70px;
           color: #4999a1;
           text-decoration: underline;
+        }
+        .tags {
+          margin-bottom: 20px;
         }
       `}</style>
     </Layout>
