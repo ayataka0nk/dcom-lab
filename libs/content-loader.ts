@@ -27,6 +27,20 @@ const listContentDirs = () => {
     .map((dirent) => dirent.name)
 }
 
+const markdownToHtml = async (slug: string, markdown: string) => {
+  const processer = unified()
+    .use(remarkParse)
+    .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(makeImagePathReplacer(slug))
+    .use(htmlAmpConverter)
+    .use(rehypeStringify)
+  const parsedContent = await processer.process(markdown)
+  const content = parsedContent.toString()
+  const decodedHtml = content.replace(/&#x3C;/g, "<")
+  return decodedHtml
+}
+
 const readContentFile = async ({
   slug,
   filename,
@@ -42,19 +56,11 @@ const readContentFile = async ({
   const matterResult = matter(raw)
   const { title, published: rawPublished, tags: tagsStr } = matterResult.data
   const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
-  const processer = unified()
-    .use(remarkParse)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(makeImagePathReplacer(slug))
-    .use(htmlAmpConverter)
-    .use(rehypeStringify)
-  const parsedContent = await processer.process(matterResult.content)
-  const content = parsedContent.toString()
+  const parsedContent = await markdownToHtml(slug, matterResult.content)
   return {
     title,
     published: formatDate(rawPublished),
-    content,
+    content: parsedContent,
     slug,
     tags,
   }
@@ -80,16 +86,9 @@ const readSummary = async (slug: string) => {
   const { title, published: rawPublished, tags: tagsStr } = <MatterResultData>(
     matterResult.data
   )
-
-  const processer = unified()
-    .use(remarkParse)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeStringify)
   const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
-  const parsedContent = await processer.process(matterResult.content)
-  const content = parsedContent.toString()
-  const decodedHtml = content.replace(/&#x3C;/g, "<")
-  const text = htmlToText.fromString(decodedHtml)
+  const html = await markdownToHtml(slug, matterResult.content)
+  const text = htmlToText.fromString(html)
   const summaryText = text.substr(0, 120)
   const postPath = path.join("/posts/" + slug)
   return {
