@@ -40,7 +40,8 @@ const readContentFile = async ({
 
   const raw = fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
   const matterResult = matter(raw)
-  const { title, published: rawPublished } = matterResult.data
+  const { title, published: rawPublished, tags: tagsStr } = matterResult.data
+  const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
   const processer = unified()
     .use(remarkParse)
     .use(remarkToRehype, { allowDangerousHtml: true })
@@ -55,6 +56,7 @@ const readContentFile = async ({
     published: formatDate(rawPublished),
     content,
     slug,
+    tags,
   }
 }
 

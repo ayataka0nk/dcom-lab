@@ -34,7 +34,9 @@ export const getStaticProps: GetStaticProps<
     props: { ...content },
   }
 }
-const Article: React.FC<{ content: string }> = (props) => {
+const Article: React.FC<{
+  content: string
+}> = (props) => {
   return (
     <div>
       <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
@@ -46,9 +48,6 @@ const Article: React.FC<{ content: string }> = (props) => {
         }
         img {
           object-fit: contain;
-        }
-        h1 {
-          color: red;
         }
       `}</style>
       <style jsx global>
@@ -64,10 +63,17 @@ const Article: React.FC<{ content: string }> = (props) => {
 const Post: NextPage<SlugProps> = (props) => {
   return (
     <Layout>
-      <h1>hoge</h1>
-      <div>{props.title} </div>
+      <div className="title">{props.title}</div>
       <div>{props.published}</div>
       <Article content={props.content} />
+      <style jsx>{`
+        .title {
+          line-height: 70px;
+          font-size: 38px;
+          color: #4999a1;
+          text-decoration: underline;
+        }
+      `}</style>
     </Layout>
   )
 }
