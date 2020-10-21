@@ -6,6 +6,7 @@ import { GithubMarkdownStyles } from "../../css/GithubMarkdownStyles"
 import { Layout } from "../../components/Layout"
 import { ArticleTags } from "../../components/article"
 import { ArticleDate } from "../../components/article/ArticleDate"
+import { HighlightDefaultStyles } from "../../css/HighlightDefaultStyles"
 
 export const config = {
   amp: true,
@@ -58,6 +59,9 @@ const Article: React.FC<{
       </style>
       <style jsx global>
         {GithubMarkdownStyles}
+      </style>
+      <style jsx global>
+        {HighlightDefaultStyles}
       </style>
     </div>
   )

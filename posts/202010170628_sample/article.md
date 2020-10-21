@@ -20,8 +20,36 @@ tags: IIS,Webサーバ,ツール
 
 <!-- ![ImageSample](./images/React-icon.svg) -->
 
+```js
+var name = "World"
+console.warn("Hello, " + name + "!")
 ```
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+```java
+public class Sample {
+　public static void main(String[] args) {
+　　System.out.print("奇数：");
+　　outputOdd();
+　　System.out.print("\n偶数：");
+　　outputEven();
+　}
+
+　static void outputOdd() {
+　　for (int i = 0; i < 10; i++) {
+　　　if (i % 2 == 1) {
+　　　　System.out.print(i + ",");
+　　　}
+　　}
+　}
+
+　static void outputEven() {
+　　for (int i = 0; i < 10; i++) {
+　　　if (i % 2 == 0) {
+　　　　System.out.print(i + ",");
+　　　}
+　　}
+　}
+}
 ```
 
 aaaaaaaaa

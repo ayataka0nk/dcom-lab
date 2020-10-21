@@ -12,6 +12,7 @@ import remarkParse from "remark-parse"
 import remarkToRehype from "remark-rehype"
 import rehypeRaw from "rehype-raw"
 import htmlToText from "html-to-text"
+import rehypeHighlight from "rehype-highlight"
 
 const md = require("markdown-it")({ html: true })
 
@@ -35,6 +36,7 @@ const markdownToAmpHtml = async (slug: string, markdown: string) => {
     .use(rehypeRaw)
     .use(makeImagePathReplacer(slug))
     .use(headerRemover)
+    .use(rehypeHighlight)
     .use(htmlAmpConverter)
     .use(rehypeStringify)
   const parsedContent = await processer.process(markdown)
