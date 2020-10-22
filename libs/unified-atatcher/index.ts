@@ -1,3 +1,4 @@
 import { makeImagePathReplacer } from "./ImagePathRemplacer"
 import { htmlAmpConverter } from "./HtmlAmpConverter"
-export { makeImagePathReplacer, htmlAmpConverter }
+import { headerRemover } from "./HeaderRemover"
+export { makeImagePathReplacer, htmlAmpConverter, headerRemover }

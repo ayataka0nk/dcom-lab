@@ -7,6 +7,7 @@ import { Layout } from "../../components/Layout"
 import { ArticleTags } from "../../components/article"
 import { ArticleDate } from "../../components/article/ArticleDate"
 import { HighlightDefaultStyles } from "../../css/HighlightDefaultStyles"
+import { readSummaries } from "../../libs/content-loaders/Utils"
 
 export const config = {
   amp: true,
@@ -34,6 +35,7 @@ export const getStaticProps: GetStaticProps<
   { slug: string }
 > = async (context) => {
   const content = await readContentFile({ slug: context.params.slug })
+  const summaries = readSummaries()
   return {
     props: { ...content },
   }

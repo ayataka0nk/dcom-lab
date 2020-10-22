@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { readSummaries, Summary } from "../../libs/content-loader"
+import { readSummaries, Summary } from "../../libs/content-loaders/Utils"
 import { ArticleCard } from "../../components/article"
 import { Layout } from "../../components/Layout"
 
