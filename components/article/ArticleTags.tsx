@@ -7,7 +7,9 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
       <div className="tag-header">tags:</div>
       {props.tags.map((tag, index) => (
         <React.Fragment key={index}>
-          <a className="tag">{tag}</a>
+          <a className="tag" href={`/tag?tag=${tag}`}>
+            {tag}
+          </a>
           {index === props.tags.length - 1 || <span className="comma">,</span>}
         </React.Fragment>
       ))}
@@ -29,6 +31,7 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
             padding: 3px 2px;
             vertical-align: bottom;
             white-space: nowrap;
+            text-decoration-color: #4999a1;
           }
           .comma {
             margin-right: 2px;
