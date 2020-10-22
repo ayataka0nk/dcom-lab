@@ -12,6 +12,9 @@ const copyImages = () => {
 
   for (const dirName of dirNames) {
     const srcDirPath = path.join(SRC_BASE_DIR, dirName, "images")
+    if (!fs.existsSync(srcDirPath)) {
+      continue
+    }
     const fileNames = fs
       .readdirSync(srcDirPath, { withFileTypes: true })
       .filter((dirent) => dirent.isFile)
