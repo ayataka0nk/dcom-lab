@@ -82,6 +82,7 @@ export const listContentDirs = () => {
   return dirents
     .filter((dirent) => !dirent.isFile())
     .map((dirent) => dirent.name)
+    .sort()
 }
 
 export const readSummary = async (slug: string) => {
@@ -97,8 +98,7 @@ export const readSummary = async (slug: string) => {
   }
 }
 
-export const readSummaries = async () => {
-  const slugs = listContentDirs()
+export const readSummaries = async (slugs: string[]) => {
   const summaries: Summary[] = []
   for (const slug of slugs) {
     const summary = await readSummary(slug)
