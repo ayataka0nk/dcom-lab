@@ -4,7 +4,7 @@ import { Navigation } from "./Navigation"
 import { TopLine } from "./TopLine"
 import { resetStyles } from "../css/reset"
 
-export const Layout: React.FC = (props) => {
+export const Layout: React.FC<{ tags: string[] }> = (props) => {
   return (
     <div className="root">
       <TopLine />
@@ -13,7 +13,7 @@ export const Layout: React.FC = (props) => {
         <div className="content-wrap">
           <div className="content">{props.children}</div>
           <div className="navigation">
-            <Navigation />
+            <Navigation tags={props.tags} />
           </div>
         </div>
       </div>

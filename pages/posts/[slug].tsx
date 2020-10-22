@@ -7,7 +7,7 @@ import { Layout } from "../../components/Layout"
 import { ArticleTags } from "../../components/article"
 import { ArticleDate } from "../../components/article/ArticleDate"
 import { HighlightDefaultStyles } from "../../css/HighlightDefaultStyles"
-import { readSummaries } from "../../libs/content-loaders/Utils"
+import { readAllTags, readSummaries } from "../../libs/content-loaders/Utils"
 
 export const config = {
   amp: true,
@@ -28,6 +28,7 @@ type SlugProps = {
   published: string
   content: string
   tags: string[]
+  allTags: string[]
 }
 
 export const getStaticProps: GetStaticProps<
@@ -35,9 +36,9 @@ export const getStaticProps: GetStaticProps<
   { slug: string }
 > = async (context) => {
   const content = await readContentFile({ slug: context.params.slug })
-  const summaries = readSummaries()
+  const allTags = await readAllTags()
   return {
-    props: { ...content },
+    props: { ...content, allTags },
   }
 }
 const Article: React.FC<{
@@ -72,7 +73,7 @@ const Article: React.FC<{
 const Post: NextPage<SlugProps> = (props) => {
   const [year, month, day] = props.published.split("/")
   return (
-    <Layout>
+    <Layout tags={props.allTags}>
       <div className="header">
         <div className="title">{props.title}</div>
         <ArticleDate year={year} month={month} day={day} />

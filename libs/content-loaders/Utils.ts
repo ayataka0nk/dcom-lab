@@ -36,8 +36,11 @@ export type Summary = {
 export const toMatter = async (markdown: string) => {
   const matterResult = matter(markdown)
   const mdInfo = <MarkDownInfo>matterResult.data
+  const tags = mdInfo.tags.split(",").map((tag) => tag.trim())
   return {
-    ...mdInfo,
+    title: mdInfo.title,
+    published: mdInfo.published,
+    tags,
     content: matterResult.content,
   }
 }
@@ -88,7 +91,7 @@ export const readSummary = async (slug: string) => {
   return {
     title: mdInfo.title,
     published: formatDate(mdInfo.published),
-    tags: mdInfo.tags.split(",").map((tag) => tag.trim()),
+    tags: mdInfo.tags,
     summaryText: extractSummaryFromHtml(html),
     path: path.join("/posts/" + slug),
   }
@@ -102,4 +105,19 @@ export const readSummaries = async () => {
     summaries.push(summary)
   }
   return summaries
+}
+
+export const readAllTags = async () => {
+  const slugs = listContentDirs()
+  let tags: string[] = []
+  for (const slug of slugs) {
+    const raw = readFile(slug)
+    const mdInfo = await toMatter(raw)
+    for (const tag of mdInfo.tags) {
+      if (!tags.includes(tag)) {
+        tags.push(tag)
+      }
+    }
+  }
+  return tags
 }

@@ -1,5 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
-import { readSummaries, Summary } from "../../libs/content-loaders/Utils"
+import {
+  readAllTags,
+  readSummaries,
+  Summary,
+} from "../../libs/content-loaders/Utils"
 import { ArticleCard } from "../../components/article"
 import { Layout } from "../../components/Layout"
 
@@ -23,16 +27,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const summaries = await readSummaries()
+  const tags = await readAllTags()
   return {
     props: {
       summaries,
+      tags,
     },
   }
 }
 
-const Page: NextPage<{ summaries: Summary[] }> = (props) => {
+const Page: NextPage<{ summaries: Summary[]; tags: string[] }> = (props) => {
   return (
-    <Layout>
+    <Layout tags={props.tags}>
       <div className="root">
         {props.summaries.map((summary) => {
           return (

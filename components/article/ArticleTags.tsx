@@ -28,6 +28,7 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
             color: #ffffff;
             padding: 3px 2px;
             vertical-align: bottom;
+            white-space: nowrap;
           }
           .comma {
             margin-right: 2px;
