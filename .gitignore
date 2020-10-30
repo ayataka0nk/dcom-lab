@@ -34,3 +34,6 @@ yarn-error.log*
 .vercel
 
 /public/articleImages
+
+/firebase-debug.log
+/.firebase
