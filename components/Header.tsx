@@ -6,9 +6,13 @@ export const Header: React.FC = (props) => {
   return (
     <div className="root">
       {isAmp ? (
-        <amp-img src="/images/logo.png" width="307px" height="100px" />
+        <a href="/pages/1">
+          <amp-img src="/images/logo.png" width="307px" height="100px" />
+        </a>
       ) : (
-        <img src="/images/logo.png" width="307px" height="100px" />
+        <a href="/pages/1">
+          <img src="/images/logo.png" width="307px" height="100px" />
+        </a>
       )}
       <style jsx>{`
         .root {
