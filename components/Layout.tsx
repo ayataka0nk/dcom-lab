@@ -1,46 +1,54 @@
 import React from "react"
+import styled from "styled-components"
 import { Header } from "./Header"
 import { Navigation } from "./Navigation"
 import { TopLine } from "./TopLine"
 import { resetStyles } from "../css/reset"
 
+const Root = styled.div`
+  margin-bottom: 40px;
+`
+
+const Body = styled.div`
+  margin: 0 auto;
+  padding: 0 13px;
+  min-width: 320px;
+  max-width: 1200px;
+`
+
+const MidBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width: 960px) {
+    flex-direction: row;
+  }
+`
+const NavigationWrap = styled.div`
+  min-width: 300px;
+  width: 300px;
+  margin: 0 0 0 40px;
+`
+const Content = styled.div`
+  flex: 1;
+`
+
 export const Layout: React.FC<{ tags: string[] }> = (props) => {
   return (
-    <div className="root">
+    <Root>
       <TopLine />
-      <div className="body">
+      <Body>
         <Header />
-        <div className="content-wrap">
-          <div className="content">{props.children}</div>
-          <div className="navigation">
+        <MidBox>
+          <Content>{props.children}</Content>
+          <NavigationWrap>
             <Navigation tags={props.tags} />
-          </div>
-        </div>
-      </div>
+          </NavigationWrap>
+        </MidBox>
+      </Body>
 
-      <style jsx>
-        {`
-          .root {
-          }
-          .body {
-            margin: 0 auto;
-            max-width: 1170px;
-          }
-          .content-wrap {
-            display: flex;
-          }
-          .navigation {
-            width: 300px;
-          }
-          .content {
-            flex: 1;
-            padding: 0px 20px;
-          }
-        `}
-      </style>
       <style jsx global>
         {resetStyles}
       </style>
-    </div>
+    </Root>
   )
 }

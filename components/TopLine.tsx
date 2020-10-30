@@ -15,7 +15,7 @@ export const TopLine: React.FC = (props) => {
         }
         .content {
           box-sizing: border-box;
-          max-width: 1170px;
+          max-width: 960px;
           margin: 0 auto;
           padding-right: 50px;
         }
