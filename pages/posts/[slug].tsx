@@ -8,6 +8,7 @@ import { ArticleTags } from "../../components/article"
 import { ArticleDate } from "../../components/article/ArticleDate"
 import { HighlightDefaultStyles } from "../../css/HighlightDefaultStyles"
 import { readAllTags, readSummaries } from "../../libs/content-loaders/Utils"
+import Head from "next/head"
 
 export const config = {
   amp: true,
@@ -74,6 +75,9 @@ const Post: NextPage<SlugProps> = (props) => {
   const [year, month, day] = props.published.split("/")
   return (
     <Layout tags={props.allTags}>
+      <Head>
+        <title>{props.title}</title>
+      </Head>
       <div className="header">
         <div className="title">{props.title}</div>
         <ArticleDate year={year} month={month} day={day} />

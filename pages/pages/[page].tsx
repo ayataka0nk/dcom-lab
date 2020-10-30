@@ -1,4 +1,5 @@
 import React from "react"
+import Head from "next/head"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import {
   listContentDirs,
@@ -62,6 +63,9 @@ export const getStaticProps: GetStaticProps<
 const OpenedPageNumber: React.FC<{ num: string }> = (props) => {
   return (
     <div className="root">
+      <Head>
+        <title>デーコムラボ　サンプル</title>
+      </Head>
       {props.num}
       <style jsx>
         {`

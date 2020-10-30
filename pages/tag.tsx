@@ -1,4 +1,5 @@
 import React from "react"
+import Head from "next/head"
 import { GetStaticProps, NextPage } from "next"
 import { ArticleCard } from "../components/article"
 import { Layout } from "../components/Layout"
@@ -30,6 +31,9 @@ const Tags: NextPage<{
   }
   return (
     <Layout tags={props.tags}>
+      <Head>
+        <title>デーコムラボ　サンプル</title>
+      </Head>
       <div className="root">
         <div className="tag-name">{tag}</div>
         {props.summaries
