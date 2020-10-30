@@ -5,7 +5,7 @@ import { useAmp } from "next/amp"
 export const Navigation: React.FC<{ tags: string[] }> = (props) => {
   const isAmp = useAmp()
   return (
-    <div>
+    <div className="root">
       <div className="dcomlink-wrap">
         <a href="http://www.dcom-web.co.jp/">
           {isAmp ? (
@@ -15,11 +15,14 @@ export const Navigation: React.FC<{ tags: string[] }> = (props) => {
           )}
         </a>
       </div>
-
       <ArticleTags tags={props.tags} />
       <style jsx>{`
+        .root {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
         .dcomlink-wrap {
-          text-align: center;
           margin-bottom: 20px;
         }
       `}</style>

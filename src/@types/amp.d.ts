@@ -1,6 +1,7 @@
 // The elements you list here will be accepted, and only with the attributes that you include here
 declare namespace JSX {
   interface AmpImg {
+    className?: string
     alt?: string
     src: string
     width: string
