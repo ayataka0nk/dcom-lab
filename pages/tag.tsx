@@ -34,9 +34,9 @@ const Tags: NextPage<{
         <div className="tag-name">{tag}</div>
         {props.summaries
           .filter((summary) => summary.tags.includes(tag))
-          .map((summary) => {
+          .map((summary, index) => {
             return (
-              <div className="article-card-box">
+              <div className="article-card-box" key={index}>
                 <ArticleCard
                   title={summary.title}
                   published={summary.published}

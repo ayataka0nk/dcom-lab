@@ -211,9 +211,9 @@ const Page: NextPage<{
   return (
     <Layout tags={props.tags}>
       <div className="root">
-        {props.summaries.map((summary) => {
+        {props.summaries.map((summary, index) => {
           return (
-            <div className="article-card-box">
+            <div key={index} className="article-card-box">
               <ArticleCard
                 title={summary.title}
                 published={summary.published}
