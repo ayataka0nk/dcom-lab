@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Header } from "./Header"
+import { PageHeader } from "./PageHeader"
 import { Navigation } from "./Navigation"
 import { TopLine } from "./TopLine"
 import { resetStyles } from "../css/reset"
@@ -37,7 +37,7 @@ export const Layout: React.FC<{ tags: string[] }> = (props) => {
     <Root>
       <TopLine />
       <Body>
-        <Header />
+        <PageHeader />
         <MidBox>
           <Content>{props.children}</Content>
           <NavigationWrap>
