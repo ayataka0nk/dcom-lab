@@ -1,31 +1,26 @@
 import React from "react"
+import styled from "styled-components"
 import { ArticleTags } from "./article"
-import { useAmp } from "next/amp"
+import { AmpImage } from "./AmpImage"
+import { ImageLink } from "./ImageLink"
+
+const Nav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 export const Navigation: React.FC<{ tags: string[] }> = (props) => {
-  const isAmp = useAmp()
   return (
-    <div className="root">
-      <div className="dcomlink-wrap">
-        <a href="http://www.dcom-web.co.jp/">
-          {isAmp ? (
-            <amp-img src="/images/dcomlink.png" width="234px" height="129px" />
-          ) : (
-            <img src="/images/dcomlink.png" width="234px" height="129px" />
-          )}
-        </a>
-      </div>
+    <Nav>
+      <ImageLink
+        imageSrc="/images/dcomlink.png"
+        imageWidth="234px"
+        imageHeight="129px"
+        href="http://www.dcom-web.co.jp/"
+        margin="0 0 20px 0"
+      />
       <ArticleTags tags={props.tags} />
-      <style jsx>{`
-        .root {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .dcomlink-wrap {
-          margin-bottom: 20px;
-        }
-      `}</style>
-    </div>
+    </Nav>
   )
 }
