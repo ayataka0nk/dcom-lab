@@ -9,6 +9,7 @@ export const ArticleCard: React.FC<{
   tags: string[]
   summaryText: string
   path: string
+  margin?: string
 }> = (props) => {
   const [year, month, day] = props.published.split("/")
   return (
@@ -34,6 +35,7 @@ export const ArticleCard: React.FC<{
           box-sizing: border-box;
           padding: 20px 20px 10px 20px;
           border: 1px solid #eee;
+          margin: ${props.margin || "0"};
         }
         .published {
           text-align: right;

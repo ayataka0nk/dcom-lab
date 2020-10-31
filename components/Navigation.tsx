@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
 import { ArticleTags } from "./article"
-import { AmpImage } from "./AmpImage"
 import { ImageLink } from "./ImageLink"
 
 const Nav = styled.nav`
