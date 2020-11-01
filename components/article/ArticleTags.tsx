@@ -1,6 +1,9 @@
 import React from "react"
 
-export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
+export const ArticleTags: React.FC<{
+  tags: string[]
+  margin?: string
+}> = React.memo((props) => {
   return (
     <div className="tags">
       <amp-img src="/images/icon-tag.svg" height="15px" width="15px" />
@@ -21,6 +24,7 @@ export const ArticleTags: React.FC<{ tags: string[] }> = React.memo((props) => {
             color: #777;
             display: flex;
             align-items: center;
+            margin: ${props.margin || "0"};
           }
           .tag-header {
             margin: 0px 5px 0px 2px;

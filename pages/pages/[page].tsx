@@ -72,19 +72,18 @@ const Page: NextPage<{
       <Head>
         <title>デーコムラボサンプル</title>
       </Head>
-      <>
-        {props.summaries.map((summary, index) => (
-          <ArticleCard
-            title={summary.title}
-            published={summary.published}
-            tags={summary.tags}
-            summaryText={summary.summaryText}
-            path={summary.path}
-            margin="0 0 40px 0"
-          />
-        ))}
-        <PageLink pageNumber={props.page} lastPage={props.maxPage} />
-      </>
+      {props.summaries.map((summary, index) => (
+        <ArticleCard
+          key={index}
+          title={summary.title}
+          published={summary.published}
+          tags={summary.tags}
+          summaryText={summary.summaryText}
+          path={summary.path}
+          margin="0 0 40px 0"
+        />
+      ))}
+      <PageLink pageNumber={props.page} lastPage={props.maxPage} />
     </Layout>
   )
 }
