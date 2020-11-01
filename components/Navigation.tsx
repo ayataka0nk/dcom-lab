@@ -12,13 +12,13 @@ const Nav = styled.nav`
 export const Navigation: React.FC<{ tags: string[] }> = (props) => {
   return (
     <Nav>
-      <ImageLink
+      {/* <ImageLink
         imageSrc="/images/dcomlink.png"
         imageWidth="234px"
         imageHeight="129px"
         href="http://www.dcom-web.co.jp/"
         margin="0 0 20px 0"
-      />
+      /> */}
       <ArticleTags tags={props.tags} />
     </Nav>
   )
