@@ -1,7 +1,51 @@
 import Link from "next/link"
+import styled from "styled-components"
 import React from "react"
 import { ArticleDate } from "./ArticleDate"
 import { ArticleTags } from "./ArticleTags"
+
+const Root = styled.div<{ margin?: string }>`
+  box-sizing: border-box;
+  padding: 20px 20px 10px 20px;
+  border: 1px solid #eee;
+  margin: ${(props) => props.margin || "0"};
+`
+
+const Published = styled.div`
+  text-align: right;
+`
+
+const SummaryText = styled.div`
+  box-sizing: border-box;
+  line-height: 20px;
+  font-size: 14px;
+  padding: 15px 0px;
+  overflow-wrap: break-word;
+`
+
+const Header = styled.header`
+  box-sizing: border-box;
+  padding: 10px 0px 15px 0px;
+`
+
+const TitleAnker = styled.a`
+  line-height: 40px;
+  font-size: 32px;
+  color: #4999a1;
+  text-decoration: underline;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+const LinkArticleAnker = styled.a`
+  color: #f42a90;
+  overflow-wrap: normal;
+  &:hover {
+    cursor: pointer;
+    color: #2a6496;
+  }
+`
 
 export const ArticleCard: React.FC<{
   title: string
@@ -13,66 +57,22 @@ export const ArticleCard: React.FC<{
 }> = (props) => {
   const [year, month, day] = props.published.split("/")
   return (
-    <div className="root">
-      <div className="published">
+    <Root margin={props.margin}>
+      <Published>
         <ArticleDate year={year} month={month} day={day} />
-      </div>
-
-      <header>
-        <Link href={props.path}>
-          <a className="title-link">{props.title}</a>
+      </Published>
+      <Header>
+        <Link href={props.path} passHref>
+          <TitleAnker className="title-link">{props.title}</TitleAnker>
         </Link>
-      </header>
+      </Header>
       <ArticleTags tags={props.tags} />
-      <div className="text">
+      <SummaryText>
         {props.summaryText}...
-        <Link href={props.path}>
-          <a className="continue">Continued</a>
+        <Link href={props.path} passHref>
+          <LinkArticleAnker className="continue">Continued</LinkArticleAnker>
         </Link>
-      </div>
-      <style jsx>{`
-        .root {
-          box-sizing: border-box;
-          padding: 20px 20px 10px 20px;
-          border: 1px solid #eee;
-          margin: ${props.margin || "0"};
-        }
-        .published {
-          text-align: right;
-        }
-        .text {
-          box-sizing: border-box;
-          line-height: 20px;
-          font-size: 14px;
-          padding: 15px 0px;
-          overflow-wrap: break-word;
-        }
-        header {
-          box-sizing: border-box;
-          padding: 10px 0px 15px 0px;
-        }
-        .title-link {
-          line-height: 40px;
-          font-size: 32px;
-          color: #4999a1;
-          text-decoration: underline;
-        }
-        .title-link:hover {
-          cursor: pointer;
-        }
-        .continue {
-          color: #f42a90;
-          overflow-wrap: normal;
-        }
-        .continue:hover {
-          cursor: pointer;
-          color: #2a6496;
-        }
-        .icon-tag {
-          height: 10px;
-          width: 10px;
-        }
-      `}</style>
-    </div>
+      </SummaryText>
+    </Root>
   )
 }

@@ -1,33 +1,30 @@
 import React from "react"
-
+import styled from "styled-components"
+const Root = styled.div`
+  display: inline-block;
+  color: #777;
+  text-align: center;
+`
+const Day = styled.div`
+  font-size: 24px;
+  line-height: 25px;
+`
+const MonthYear = styled.div`
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 11px;
+`
 export const ArticleDate: React.FC<{
   year: string
   month: string
   day: string
 }> = (props) => {
   return (
-    <div className="root">
-      <div className="day">{props.day}</div>
-      <div className="month-year">
+    <Root>
+      <Day>{props.day}</Day>
+      <MonthYear>
         {props.month}月 {props.year}
-      </div>
-
-      <style jsx>{`
-        .root {
-          display: inline-block;
-          color: #777;
-          text-align: center;
-        }
-        .day {
-          font-size: 24px;
-          line-height: 25px;
-        }
-        .month-year {
-          white-space: nowrap;
-          font-size: 10px;
-          line-height: 11px;
-        }
-      `}</style>
-    </div>
+      </MonthYear>
+    </Root>
   )
 }
