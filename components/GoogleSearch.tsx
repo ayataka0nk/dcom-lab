@@ -19,6 +19,10 @@ const SearchInput = styled.input`
   background-color: transparent;
   border: 0;
   outline: 0;
+  color: #fff;
+  &:-internal-autofill-selected {
+    background-color: transparent;
+  }
   &::placeholder {
     color: #fff;
   }
@@ -46,6 +50,7 @@ export const GoogleSearch: React.FC = () => {
           type="text"
           name="q"
           placeholder="Googleカスタム検索"
+          autoComplete="off"
         />
       </Form>
     </Root>
