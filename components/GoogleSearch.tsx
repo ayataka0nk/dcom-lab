@@ -20,9 +20,6 @@ const SearchInput = styled.input`
   border: 0;
   outline: 0;
   color: #fff;
-  &:-internal-autofill-selected {
-    background-color: transparent;
-  }
   &::placeholder {
     color: #fff;
   }
