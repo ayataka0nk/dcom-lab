@@ -18,7 +18,9 @@ tags: IIS,Webサーバ,ツール
 <img src="./images/React-icon.svg" width="100px" height="100px">
 <img src="./images/sample.png">
 
-<!-- ![ImageSample](./images/React-icon.svg) -->
+![ImageSample](./images/React-icon.svg)
+
+# [グーグル](http://www.google.com)
 
 ```js
 var name = "World"
