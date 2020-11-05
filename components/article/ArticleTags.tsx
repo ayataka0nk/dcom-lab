@@ -30,7 +30,7 @@ export const ArticleTags: React.FC<{
   margin?: string
 }> = React.memo((props) => {
   return (
-    <Root>
+    <Root margin={props.margin}>
       <AmpImage src="/images/icon-tag.svg" height="15px" width="15px" />
       <TagHeader>tags:</TagHeader>
       {props.tags.map((tag, index) => (
