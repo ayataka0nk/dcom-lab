@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { PageHeader } from "./PageHeader"
 import { Navigation } from "./Navigation"
 import { TopLine } from "./TopLine"
-import { resetStyles } from "../css/reset"
+import { GlobalStyles } from "./GlobalStyles"
 
 const Root = styled.div`
   margin-bottom: 40px;
@@ -35,6 +35,7 @@ const Content = styled.div`
 export const Layout: React.FC<{ tags: string[] }> = (props) => {
   return (
     <Root>
+      <GlobalStyles />
       <TopLine />
       <Body>
         <PageHeader />
@@ -45,10 +46,6 @@ export const Layout: React.FC<{ tags: string[] }> = (props) => {
           </NavigationWrap>
         </MidBox>
       </Body>
-
-      <style jsx global>
-        {resetStyles}
-      </style>
     </Root>
   )
 }

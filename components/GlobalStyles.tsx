@@ -1,12 +1,6 @@
-import css from "styled-jsx/css"
-/*
-html5doctor.com Reset Stylesheet
-v1.6.1
-Last Updated: 2010-09-17
-Author: Richard Clark - http://richclarkdesign.com
-Twitter: @rich_clark
-*/
-export const resetStyles = css.global`
+import { createGlobalStyle } from "styled-components"
+
+export const GlobalStyles = createGlobalStyle`
   html,
   body,
   div,
