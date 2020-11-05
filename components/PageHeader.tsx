@@ -11,7 +11,7 @@ export const PageHeader: React.FC = (props) => {
   return (
     <Header>
       <a href="/pages/1">
-        <AmpImage src="/images/logo.png" width="307px" height="100px" />
+        <AmpImage src="/images/logo.png" width="360px" height="117px" />
       </a>
     </Header>
   )
