@@ -8,7 +8,14 @@ declare namespace JSX {
     height: string
     layout?: string
   }
+  interface AmpSocialShare {
+    type: string
+    children?: string
+    layout?: string
+    "data-share-endpoint"?: string
+  }
   interface IntrinsicElements {
     "amp-img": AmpImg
+    "amp-social-share": AmpSocialShare
   }
 }

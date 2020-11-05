@@ -50,6 +50,7 @@ const Post: NextPage<SlugProps> = (props) => {
       <ArticleHeader title={props.title} published={props.published} />
       <ArticleTags tags={props.tags} margin="0 0 20px 0" />
       <ArticleContent content={props.content} />
+      <amp-social-share type="twitter" />
     </Layout>
   )
 }
