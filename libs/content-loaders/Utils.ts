@@ -57,8 +57,7 @@ export const markdownToAmpHtml = async (slug: string, markdown: string) => {
     .use(rehypeStringify)
   const parsedContent = await processer.process(markdown)
   const content = parsedContent.toString()
-  const decodedHtml = content.replace(/&#x3C;/g, "<")
-  return decodedHtml
+  return content
 }
 export const markdownToHtml = async (markdown: string) => {
   const processer = unified()
@@ -67,8 +66,7 @@ export const markdownToHtml = async (markdown: string) => {
     .use(rehypeStringify)
   const parsedContent = await processer.process(markdown)
   const content = parsedContent.toString()
-  const decodedHtml = content.replace(/&#x3C;/g, "<")
-  return decodedHtml
+  return content
 }
 
 export const extractSummaryFromHtml = (html: string) => {
