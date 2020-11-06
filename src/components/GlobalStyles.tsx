@@ -1,6 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-
-export const GlobalStyles = createGlobalStyle`
+import css from "styled-jsx/css"
+export const GlobalStyles = css.global`
   html,
   body,
   div,

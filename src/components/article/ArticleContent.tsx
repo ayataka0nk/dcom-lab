@@ -5,8 +5,14 @@ export const ArticleContent: React.FC<{
   content: string
 }> = (props) => {
   return (
-    <ArticleStyle>
-      <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
-    </ArticleStyle>
+    <div>
+      <div
+        className="md-body"
+        dangerouslySetInnerHTML={{ __html: props.content }}
+      ></div>
+      <style jsx global>
+        {ArticleStyle}
+      </style>
+    </div>
   )
 }

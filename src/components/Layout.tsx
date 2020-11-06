@@ -35,7 +35,6 @@ const Content = styled.div`
 export const Layout: React.FC<{ tags: string[] }> = (props) => {
   return (
     <Root>
-      <GlobalStyles />
       <TopLine />
       <Body>
         <PageHeader />
@@ -46,6 +45,9 @@ export const Layout: React.FC<{ tags: string[] }> = (props) => {
           </NavigationWrap>
         </MidBox>
       </Body>
+      <style jsx global>
+        {GlobalStyles}
+      </style>
     </Root>
   )
 }
