@@ -6,7 +6,7 @@ import {
   readAllTags,
   readSummaries,
   Summary,
-} from "../../libs/content-loaders/Utils"
+} from "../../foundations/content-loaders/Utils"
 import { ArticleCard } from "../../components/article"
 import { Layout } from "../../layout"
 import { PagingLink } from "../../components/paging"

@@ -8,7 +8,7 @@ import {
   readAllTags,
   readSummaries,
   Summary,
-} from "../libs/content-loaders/Utils"
+} from "../foundations/content-loaders/Utils"
 import { useRouter } from "next/router"
 
 export const getStaticProps: GetStaticProps = async (context) => {

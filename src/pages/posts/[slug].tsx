@@ -4,7 +4,7 @@ import {
   listContentDirs,
   readContentFile,
   readAllTags,
-} from "../../libs/content-loaders/Utils"
+} from "../../foundations/content-loaders/Utils"
 import { Layout } from "../../layout"
 import Head from "next/head"
 import { Article } from "../../components/article"
