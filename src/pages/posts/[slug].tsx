@@ -1,8 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import path from "path"
-import { listContentDirs, readContentFile } from "../../libs/content-loader"
+import {
+  listContentDirs,
+  readContentFile,
+  readAllTags,
+} from "../../libs/content-loaders/Utils"
 import { Layout } from "../../layout"
-import { readAllTags } from "../../libs/content-loaders/Utils"
 import Head from "next/head"
 import { Article } from "../../components/article"
 

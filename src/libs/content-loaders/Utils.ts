@@ -3,12 +3,13 @@ import path from "path"
 import { DIR, ARTICLE_FILE_NAME } from "./Constants"
 import matter from "gray-matter"
 
-import rehypeStringify from "rehype-stringify"
 import unified from "unified"
 import remarkParse from "remark-parse"
 import remarkToRehype from "remark-rehype"
 import rehypeRaw from "rehype-raw"
 import rehypeHighlight from "rehype-highlight"
+import rehypeStringify from "rehype-stringify"
+
 import {
   makeImagePathReplacer,
   htmlAmpConverter,
@@ -48,13 +49,13 @@ export const toMatter = async (markdown: string) => {
 export const markdownToAmpHtml = async (slug: string, markdown: string) => {
   const processer = unified()
     .use(remarkParse)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeRaw)
-    .use(makeImagePathReplacer(slug))
-    .use(headerRemover)
-    .use(rehypeHighlight)
-    .use(htmlAmpConverter)
-    .use(rehypeStringify)
+    .use(remarkToRehype, { allowDangerousHtml: true }) //Markdown内の生htmlを許容しながら変換
+    .use(rehypeRaw) //Markdown内にあった生htmlをデコード
+    .use(makeImagePathReplacer(slug)) //画像パスを変換
+    .use(headerRemover) //一つ目のh1を削除
+    .use(rehypeHighlight) //<code>のハイライトを有効
+    .use(htmlAmpConverter) //一部タグをamp仕様に変換
+    .use(rehypeStringify) //htmlを文字列に変換
   const parsedContent = await processer.process(markdown)
   const content = parsedContent.toString()
   return content
@@ -118,4 +119,29 @@ export const readAllTags = async () => {
     }
   }
   return tags
+}
+
+export const readContentFile = async ({
+  slug,
+  filename,
+}: {
+  slug: string
+  filename?: string
+}) => {
+  if (slug === undefined) {
+    slug = path.parse(filename).name
+  }
+
+  const raw = fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
+  const matterResult = matter(raw)
+  const { title, published: rawPublished, tags: tagsStr } = matterResult.data
+  const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
+  const parsedContent = await markdownToAmpHtml(slug, matterResult.content)
+  return {
+    title,
+    published: formatDate(rawPublished),
+    content: parsedContent,
+    slug,
+    tags,
+  }
 }
