@@ -13,7 +13,7 @@ import {
   makeImagePathReplacer,
   htmlAmpConverter,
   headerRemover,
-} from "../../libs/unified-atatcher"
+} from "../unified-atatcher"
 
 import htmlToText from "html-to-text"
 import { formatDate } from "../date"
