@@ -1,51 +1,6 @@
 import Link from "next/link"
-import styled from "styled-components"
-import React from "react"
 import { ArticleDate } from "./ArticleDate"
 import { ArticleTags } from "./ArticleTags"
-
-const Root = styled.div<{ margin?: string }>`
-  box-sizing: border-box;
-  padding: 20px 20px 10px 20px;
-  border: 1px solid #eee;
-  margin: ${(props) => props.margin || "0"};
-`
-
-const Published = styled.div`
-  text-align: right;
-`
-
-const SummaryText = styled.div`
-  box-sizing: border-box;
-  line-height: 20px;
-  font-size: 14px;
-  padding: 15px 0px;
-  overflow-wrap: break-word;
-`
-
-const Header = styled.header`
-  box-sizing: border-box;
-  padding: 10px 0px 15px 0px;
-`
-
-const TitleAnker = styled.a`
-  line-height: 40px;
-  font-size: 32px;
-  color: #4999a1;
-  text-decoration: underline;
-  &:hover {
-    cursor: pointer;
-  }
-`
-
-const LinkArticleAnker = styled.a`
-  color: #f42a90;
-  overflow-wrap: normal;
-  &:hover {
-    cursor: pointer;
-    color: #2a6496;
-  }
-`
 
 export const ArticleCard: React.FC<{
   title: string
@@ -57,22 +12,63 @@ export const ArticleCard: React.FC<{
 }> = (props) => {
   const [year, month, day] = props.published.split("/")
   return (
-    <Root margin={props.margin}>
-      <Published>
+    <dl>
+      <dd className="published">
         <ArticleDate year={year} month={month} day={day} />
-      </Published>
-      <Header>
+      </dd>
+      <dt>
         <Link href={props.path} passHref>
-          <TitleAnker className="title-link">{props.title}</TitleAnker>
+          <a className="title">{props.title}</a>
         </Link>
-      </Header>
-      <ArticleTags tags={props.tags} />
-      <SummaryText>
+      </dt>
+      <dd>
+        <ArticleTags tags={props.tags} />
+      </dd>
+      <dd className="summary-text">
         {props.summaryText}...
         <Link href={props.path} passHref>
-          <LinkArticleAnker className="continue">Continued</LinkArticleAnker>
+          <a className="continued">Continued</a>
         </Link>
-      </SummaryText>
-    </Root>
+      </dd>
+
+      <style jsx>{`
+        dl {
+          padding: 20px 20px 10px 20px;
+          border: 1px solid #eee;
+          margin: ${props.margin || "0"};
+        }
+        dd.published {
+          text-align: right;
+        }
+        dd.summary-text {
+          line-height: 20px;
+          font-size: 14px;
+          padding: 15px 0px;
+          overflow-wrap: break-word;
+        }
+        .header {
+        }
+        dt {
+          padding: 10px 0px 15px 0px;
+        }
+        a.title {
+          line-height: 40px;
+          font-size: 32px;
+          color: #4999a1;
+          text-decoration: underline;
+        }
+        a.title:hover {
+          cursor: pointer;
+        }
+        a.continued {
+          color: #f42a90;
+          overflow-wrap: normal;
+        }
+        a.continued:hover {
+          cursor: pointer;
+          color: #2a6496;
+        }
+      `}</style>
+    </dl>
   )
 }

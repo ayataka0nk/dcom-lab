@@ -165,4 +165,8 @@ export const GlobalStyles = css.global`
   select {
     vertical-align: middle;
   }
+
+  * {
+    box-sizing: border-box;
+  }
 `

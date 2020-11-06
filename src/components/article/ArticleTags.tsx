@@ -1,46 +1,48 @@
-import Link from "next/link"
 import React from "react"
-import styled from "styled-components"
-import { AmpImage } from "../AmpImage"
+import Link from "next/link"
+import { AmpImage } from "../image/AmpImage"
 
-const Root = styled.div<{ margin?: string }>`
-  box-sizing: border-box;
-  font-size: 11px;
-  color: #777;
-  display: flex;
-  align-items: center;
-  margin: ${(props) => props.margin || "0"};
-`
-const TagHeader = styled.div`
-  margin: 0px 5px 0px 2px;
-`
-const TagAnker = styled.a`
-  background-color: #4999a1;
-  color: #ffffff;
-  padding: 3px 2px;
-  vertical-align: bottom;
-  white-space: nowrap;
-  text-decoration-color: #4999a1;
-`
-const Comma = styled.span`
-  margin-right: 2px;
-`
 export const ArticleTags: React.FC<{
   tags: string[]
   margin?: string
 }> = React.memo((props) => {
   return (
-    <Root margin={props.margin}>
+    <div className="article-tags">
       <AmpImage src="/images/icon-tag.svg" height="15px" width="15px" />
-      <TagHeader>tags:</TagHeader>
+      <label>tags:</label>
       {props.tags.map((tag, index) => (
         <React.Fragment key={index}>
           <Link href={`/tag?tag=${tag}`} passHref>
-            <TagAnker>{tag}</TagAnker>
+            <a>{tag}</a>
           </Link>
-          {index === props.tags.length - 1 || <Comma>,</Comma>}
+          {index === props.tags.length - 1 || <span className="comma">,</span>}
         </React.Fragment>
       ))}
-    </Root>
+      <style jsx>
+        {`
+          .article-tags {
+            font-size: 11px;
+            color: #777;
+            display: flex;
+            align-items: center;
+            margin: ${props.margin || "0"};
+          }
+          label {
+            margin: 0px 5px 0px 2px;
+          }
+          a {
+            background-color: #4999a1;
+            color: #ffffff;
+            padding: 3px 2px;
+            vertical-align: bottom;
+            white-space: nowrap;
+            text-decoration-color: #4999a1;
+          }
+          .comma {
+            margin-right: 2px;
+          }
+        `}
+      </style>
+    </div>
   )
 })

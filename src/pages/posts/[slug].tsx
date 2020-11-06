@@ -2,11 +2,9 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import path from "path"
 import { listContentDirs, readContentFile } from "../../libs/content-loader"
 import { Layout } from "../../layout"
-import { ArticleTags } from "../../components/article"
 import { readAllTags } from "../../libs/content-loaders/Utils"
 import Head from "next/head"
-import { ArticleHeader } from "../../components/article/ArticleHeader"
-import { ArticleContent } from "../../components/article/ArticleContent"
+import { Article } from "../../components/article"
 
 export const config = {
   amp: true,
@@ -47,10 +45,12 @@ const Post: NextPage<SlugProps> = (props) => {
       <Head>
         <title>{props.title}</title>
       </Head>
-      <ArticleHeader title={props.title} published={props.published} />
-      <ArticleTags tags={props.tags} margin="0 0 20px 0" />
-      <ArticleContent content={props.content} />
-      <amp-social-share type="twitter" />
+      <Article
+        title={props.title}
+        published={props.published}
+        tags={props.tags}
+        content={props.content}
+      />
     </Layout>
   )
 }
