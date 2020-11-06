@@ -2,7 +2,7 @@ import React from "react"
 import Head from "next/head"
 import { GetStaticProps, NextPage } from "next"
 import { ArticleCard } from "../components/article"
-import { Layout } from "../components/Layout"
+import { Layout } from "../layout"
 import {
   listContentDirs,
   readAllTags,

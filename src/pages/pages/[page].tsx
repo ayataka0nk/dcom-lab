@@ -8,7 +8,7 @@ import {
   Summary,
 } from "../../libs/content-loaders/Utils"
 import { ArticleCard } from "../../components/article"
-import { Layout } from "../../components/Layout"
+import { Layout } from "../../layout"
 import { PageLink } from "../../components/PagingElement"
 
 export const config = {

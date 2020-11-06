@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { AmpImage } from "./AmpImage"
+import { AmpImage } from "../components/AmpImage"
 
 const Root = styled.div`
   background-color: rgba(255, 255, 255, 0.2);

@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
-import { ArticleTags } from "./article"
-import { ImageLink } from "./ImageLink"
+import { ArticleTags } from "../components/article"
+import { ImageLink } from "../components/ImageLink"
 
 const Nav = styled.nav`
   display: flex;

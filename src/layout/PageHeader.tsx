@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { AmpImage } from "./AmpImage"
+import { AmpImage } from "../components/AmpImage"
 
 const Header = styled.header`
   box-sizing: border-box;
