@@ -1,48 +1,64 @@
-export const htmlAmpConverter = () => {
+import unified from "unified"
+import { Node } from "unist"
+
+export const htmlAmpConverter: unified.Attacher = () => {
   return function (node, vfile, next) {
     try {
       const newNode = visit(convertCode, node)
-      next(null, newNode)
+      next(null, newNode, vfile)
     } catch (err) {
-      next(err)
+      next(err, node, vfile)
     }
   }
 }
+type PropertiesWithHeightAndWidth = {
+  width: string
+  height: string
+  layout?: string
+}
 
-const convertCode = (node) => {
-  if (node.tagName === "img") {
-    node.tagName = "amp-img"
-    const width = node.properties.width
-    const height = node.properties.height
-    if (typeof height !== "undefined" && typeof width !== "undefined") {
-      node.properties.layout = "fixed"
-      return node
-    } else {
-      if (width) {
-      }
-      node.properties.layout = "fill"
-      const newChildren = []
-      newChildren.push(node)
-      const newNode = {
-        type: "element",
-        tagName: "div",
-        properties: {
-          className: ["amp-img-container"],
-          style: "height:500px;",
-        },
-        children: newChildren,
-      }
-      return newNode
-    }
+const hasHeightAndWidth = (p: any): p is PropertiesWithHeightAndWidth => {
+  if (
+    typeof p === "object" &&
+    typeof p.width === "string" &&
+    typeof p.height === "string"
+  ) {
+    return true
   } else {
+    return false
+  }
+}
+
+const convertCode = (node: Node) => {
+  if (node.tagName !== "img") {
     return node
+  }
+
+  node.tagName = "amp-img"
+  if (hasHeightAndWidth(node.properties)) {
+    node.properties.layout = "fixed"
+    return node
+  } else {
+    ;(node.properties as any).layout = "fill"
+    const newChildren: Node[] = []
+    newChildren.push(node)
+    const newNode = {
+      type: "element",
+      tagName: "div",
+      properties: {
+        className: ["amp-img-container"],
+        style: "height:500px;",
+      },
+      children: newChildren,
+    }
+    return newNode
   }
 }
 
 // hastの要素を訪問する関数
-const visit = (visitor, node) => {
+const visit = (visitor: (node: Node) => Node, node: Node) => {
   const newNode = visitor(node)
-  if (newNode.children) {
+  if (Array.isArray(newNode.children)) {
     const newChildren = []
     for (let i = 0; i < newNode.children.length; i++) {
       newChildren.push(visit(visitor, newNode.children[i]))
