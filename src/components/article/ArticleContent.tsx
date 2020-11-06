@@ -1,25 +1,41 @@
-import styled from "styled-components"
+import React from "react"
+import css from "styled-jsx/css"
 
-export const ArticleStyle = styled.div`
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  line-height: 1.5;
-  color: #24292e;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji;
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
-  * {
+export const ArticleContent: React.FC<{
+  content: string
+}> = (props) => {
+  return (
+    <section className="md-body">
+      <div dangerouslySetInnerHTML={{ __html: props.content }}></div>
+      <style jsx global>
+        {ArticleStyle}
+      </style>
+    </section>
+  )
+}
+
+const ArticleStyle = css.global`
+  .md-body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+    color: #24292e;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+      sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  .md-body * {
     box-sizing: border-box;
   }
   //ヘッダ
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  .md-body h1,
+  .md-body h2,
+  .md-body h3,
+  .md-body h4,
+  .md-body h5,
+  .md-body h6 {
     color: #1b1f23;
     vertical-align: middle;
     margin-top: 24px;
@@ -27,82 +43,82 @@ export const ArticleStyle = styled.div`
     font-weight: 600;
     line-height: 1.25;
   }
-  h1 {
+  .md-body h1 {
     font-size: 2em;
     margin: 0.67em 0;
   }
-  h2 {
+  .md-body h2 {
     font-size: 1.5em;
   }
-  h3 {
+  .md-body h3 {
     font-size: 1.25em;
   }
-  h4 {
+  .md-body h4 {
     font-size: 1em;
   }
-  h5 {
+  .md-body h5 {
     font-size: 0.875em;
   }
-  h6 {
+  .md-body h6 {
     font-size: 0.85em;
     color: #6a737d;
   }
-  h1,
-  h2 {
+  .md-body h1,
+  .md-body h2 {
     padding-bottom: 0.3em;
     border-bottom: 1px solid #eaecef;
   }
 
   //折り畳み表示
-  details {
+  .md-body details {
     display: block;
     margin-top: 0;
     margin-bottom: 16px;
   }
-  summary {
+  .md-body summary {
     display: list-item;
   }
-  details summary {
+  .md-body details summary {
     cursor: pointer;
   }
 
   //リンク
-  a {
+  .md-body a {
     background-color: initial;
     color: #0366d6;
     text-decoration: none;
   }
-  a:not([href]) {
+  .md-body a:not([href]) {
     color: inherit;
     text-decoration: none;
   }
-  a:active,
-  a:hover {
+  .md-body a:active,
+  .md-body a:hover {
     outline-width: 0;
     text-decoration: underline;
   }
 
   //太字
-  strong {
+  .md-body strong {
     font-weight: 600;
   }
 
   //画像
-  img {
+  .md-body img {
     border-style: none;
     max-width: 100%;
     box-sizing: initial;
     background-color: #fff;
   }
-  img[align="right"] {
+  .md-body img[align="right"] {
     padding-left: 20px;
   }
-  img[align="left"] {
+  .md-body img[align="left"] {
     padding-right: 20px;
   }
 
   //水平線
-  hr {
+  .md-body hr {
     box-sizing: initial;
     height: 0.25em;
     padding: 0;
@@ -115,37 +131,37 @@ export const ArticleStyle = styled.div`
     background-color: #e1e4e8;
     border: 0;
   }
-  hr:after,
-  hr:before {
+  .md-body hr:after,
+  .md-body hr:before {
     display: table;
     content: "";
   }
-  hr:after {
+  .md-body hr:after {
     clear: both;
   }
 
   //入力系
-  input {
+  .md-body input {
     font: inherit;
     margin: 0;
     overflow: visible;
   }
-  input[type="checkbox"] {
+  .md-body input[type="checkbox"] {
     box-sizing: border-box;
     padding: 0;
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
   }
-  input::-webkit-inner-spin-button,
-  input::-webkit-outer-spin-button {
+  .md-body input::-webkit-inner-spin-button,
+  .md-body input::-webkit-outer-spin-button {
     margin: 0;
     -webkit-appearance: none;
     appearance: none;
   }
 
   //テーブル
-  table {
+  .md-body table {
     border-spacing: 0;
     border-collapse: collapse;
     margin-top: 0;
@@ -154,32 +170,32 @@ export const ArticleStyle = styled.div`
     width: 100%;
     overflow: auto;
   }
-  td,
-  th {
+  .md-body td,
+  .md-body th {
     padding: 0;
     font-weight: 600;
   }
-  table td,
-  table th {
+  .md-body table td,
+  .md-body table th {
     padding: 6px 13px;
     border: 1px solid #dfe2e5;
   }
-  table tr {
+  .md-body table tr {
     background-color: #fff;
     border-top: 1px solid #c6cbd1;
   }
-  table tr:nth-child(2n) {
+  .md-body table tr:nth-child(2n) {
     background-color: #f6f8fa;
   }
 
   //段落
-  p {
+  .md-body p {
     margin-top: 0;
     margin-bottom: 16px;
   }
 
   //引用
-  blockquote {
+  .md-body blockquote {
     margin: 0;
     margin-top: 0;
     margin-bottom: 16px;
@@ -187,81 +203,81 @@ export const ArticleStyle = styled.div`
     border-left: 0.25em solid #dfe2e5;
     padding: 0 1em;
   }
-  blockquote > :first-child {
+  .md-body blockquote > :first-child {
     margin-top: 0;
   }
-  blockquote > :last-child {
+  .md-body blockquote > :last-child {
     margin-bottom: 0;
   }
 
   //箇条書き
-  ol,
-  ul {
+  .md-body ol,
+  .md-body ul {
     padding-left: 2em;
     margin-top: 0;
     margin-bottom: 16px;
   }
-  ol ol,
-  ul ol {
+  .md-body ol ol,
+  .md-body ul ol {
     list-style-type: lower-roman;
   }
-  ol ol ol,
-  ol ul ol,
-  ul ol ol,
-  ul ul ol {
+  .md-body ol ol ol,
+  .md-body ol ul ol,
+  .md-body ul ol ol,
+  .md-body ul ul ol {
     list-style-type: lower-alpha;
   }
-  ol ol,
-  ol ul,
-  ul ol,
-  ul ul {
+  .md-body ol ol,
+  .md-body ol ul,
+  .md-body ul ol,
+  .md-body ul ul {
     margin-top: 0;
     margin-bottom: 0;
   }
-  li {
+  .md-body li {
     word-wrap: break-all;
   }
-  li > p {
+  .md-body li > p {
     margin-top: 16px;
   }
-  li + li {
+  .md-body li + li {
     margin-top: 0.25em;
   }
 
   //説明リスト
-  dl {
+  .md-body dl {
     margin-top: 0;
     margin-bottom: 16px;
     padding: 0;
   }
-  dd {
+  .md-body dd {
     margin-left: 0;
   }
-  dl dt {
+  .md-body dl dt {
     padding: 0;
     margin-top: 16px;
     font-size: 1em;
     font-style: italic;
     font-weight: 600;
   }
-  dl dd {
+  .md-body dl dd {
     padding: 0 16px;
     margin-bottom: 16px;
   }
 
   //コード、キー入力系
-  code,
-  kbd,
-  pre {
+  .md-body code,
+  .md-body kbd,
+  .md-body pre {
     font-family: monospace, monospace;
     font-size: 1em;
   }
-  code,
-  pre {
+  .md-body code,
+  .md-body pre {
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
     font-size: 12px;
   }
-  kbd {
+  .md-body kbd {
     display: inline-block;
     padding: 3px 5px;
     font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
@@ -273,19 +289,19 @@ export const ArticleStyle = styled.div`
     border-radius: 3px;
     box-shadow: inset 0 -1px 0 #d1d5da;
   }
-  pre {
+  .md-body pre {
     margin-top: 0;
     margin-bottom: 16px;
     word-wrap: normal;
   }
-  code {
+  .md-body code {
     padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
     background-color: rgba(27, 31, 35, 0.05);
     border-radius: 3px;
   }
-  pre > code {
+  .md-body pre > code {
     padding: 0;
     margin: 0;
     font-size: 100%;
@@ -294,15 +310,15 @@ export const ArticleStyle = styled.div`
     background: transparent;
     border: 0;
   }
-  .highlight {
+  .md-body .highlight {
     margin-bottom: 16px;
   }
-  .highlight pre {
+  .md-body .highlight pre {
     margin-bottom: 0;
     word-break: normal;
   }
-  .highlight pre,
-  .markdown-body pre {
+  .md-body .highlight pre,
+  .md-body .markdown-body pre {
     padding: 16px;
     overflow: auto;
     font-size: 85%;
@@ -310,7 +326,7 @@ export const ArticleStyle = styled.div`
     background-color: #f6f8fa;
     border-radius: 3px;
   }
-  pre code {
+  .md-body pre code {
     display: inline;
     max-width: auto;
     padding: 0;
@@ -327,61 +343,61 @@ export const ArticleStyle = styled.div`
   /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
 
   /* Tomorrow Comment */
-  .hljs-comment,
-  .hljs-quote {
+  .md-body .hljs-comment,
+  .md-body .hljs-quote {
     color: #969896;
   }
 
   /* Tomorrow Red */
-  .hljs-variable,
-  .hljs-template-variable,
-  .hljs-tag,
-  .hljs-name,
-  .hljs-selector-id,
-  .hljs-selector-class,
-  .hljs-regexp,
-  .hljs-deletion {
+  .md-body .hljs-variable,
+  .md-body .hljs-template-variable,
+  .md-body .hljs-tag,
+  .md-body .hljs-name,
+  .md-body .hljs-selector-id,
+  .md-body .hljs-selector-class,
+  .md-body .hljs-regexp,
+  .md-body .hljs-deletion {
     color: #cc6666;
   }
 
   /* Tomorrow Orange */
-  .hljs-number,
-  .hljs-built_in,
-  .hljs-builtin-name,
-  .hljs-literal,
-  .hljs-type,
-  .hljs-params,
-  .hljs-meta,
-  .hljs-link {
+  .md-body .hljs-number,
+  .md-body .hljs-built_in,
+  .md-body .hljs-builtin-name,
+  .md-body .hljs-literal,
+  .md-body .hljs-type,
+  .md-body .hljs-params,
+  .md-body .hljs-meta,
+  .md-body .hljs-link {
     color: #de935f;
   }
 
   /* Tomorrow Yellow */
-  .hljs-attribute {
+  .md-body .hljs-attribute {
     color: #f0c674;
   }
 
   /* Tomorrow Green */
-  .hljs-string,
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-addition {
+  .md-body .hljs-string,
+  .md-body .hljs-symbol,
+  .md-body .hljs-bullet,
+  .md-body .hljs-addition {
     color: #b5bd68;
   }
 
   /* Tomorrow Blue */
-  .hljs-title,
-  .hljs-section {
+  .md-body .hljs-title,
+  .md-body .hljs-section {
     color: #81a2be;
   }
 
   /* Tomorrow Purple */
-  .hljs-keyword,
-  .hljs-selector-tag {
+  .md-body .hljs-keyword,
+  .md-body .hljs-selector-tag {
     color: #b294bb;
   }
 
-  .hljs {
+  .md-body .hljs {
     display: block;
     overflow-x: auto;
     background: #1d1f21;
@@ -389,20 +405,20 @@ export const ArticleStyle = styled.div`
     padding: 0.5em;
   }
 
-  .hljs-emphasis {
+  .md-body .hljs-emphasis {
     font-style: italic;
   }
 
-  .hljs-strong {
+  .md-body .hljs-strong {
     font-weight: bold;
   }
 
-  .amp-img-container {
+  .md-body .amp-img-container {
     position: relative;
     width: 100%;
     display: flex;
   }
-  img {
+  .md-body img {
     object-fit: contain;
   }
 `

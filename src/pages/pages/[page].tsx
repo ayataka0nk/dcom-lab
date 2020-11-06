@@ -8,8 +8,8 @@ import {
   Summary,
 } from "../../libs/content-loaders/Utils"
 import { ArticleCard } from "../../components/article"
-import { Layout } from "../../components/Layout"
-import { PageLink } from "../../components/PagingElement"
+import { Layout } from "../../layout"
+import { PagingLink } from "../../components/paging"
 
 export const config = {
   amp: true,
@@ -83,7 +83,7 @@ const Page: NextPage<{
           margin="0 0 40px 0"
         />
       ))}
-      <PageLink pageNumber={props.page} lastPage={props.maxPage} />
+      <PagingLink pageNumber={props.page} lastPage={props.maxPage} />
     </Layout>
   )
 }

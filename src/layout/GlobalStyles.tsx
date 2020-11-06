@@ -1,6 +1,5 @@
-import { createGlobalStyle } from "styled-components"
-
-export const GlobalStyles = createGlobalStyle`
+import css from "styled-jsx/css"
+export const GlobalStyles = css.global`
   html,
   body,
   div,
@@ -165,5 +164,9 @@ export const GlobalStyles = createGlobalStyle`
   input,
   select {
     vertical-align: middle;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 `
