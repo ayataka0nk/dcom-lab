@@ -1,12 +1,14 @@
 import { ArticleContent } from "./ArticleContent"
 import { ArticleDate } from "./ArticleDate"
 import { ArticleTags } from "./ArticleTags"
+import { SocialShares } from "./SocialShares"
 
 type ArticleProps = {
   title: string
   published: string
   tags: string[]
   content: string
+  url: string
 }
 
 export const Article: React.FC<ArticleProps> = (props) => {
@@ -19,7 +21,9 @@ export const Article: React.FC<ArticleProps> = (props) => {
       </header>
       <ArticleTags tags={props.tags} margin="0 0 20px 0" />
       <ArticleContent content={props.content} />
-      <amp-social-share type="twitter" />
+      <hr />
+      <SocialShares url={props.url} />
+      <hr />
       <style jsx>{`
         header {
           display: flex;

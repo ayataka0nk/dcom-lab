@@ -8,6 +8,7 @@ import {
 import { Layout } from "../../layout"
 import Head from "next/head"
 import { Article } from "../../components/article"
+import { BASE_URL } from "../../foundations/Constants"
 
 export const config = {
   amp: true,
@@ -29,6 +30,7 @@ type SlugProps = {
   content: string
   tags: string[]
   allTags: string[]
+  slug: string
 }
 
 export const getStaticProps: GetStaticProps<
@@ -38,11 +40,12 @@ export const getStaticProps: GetStaticProps<
   const content = await readPage({ slug: context.params.slug })
   const allTags = await readAllTags()
   return {
-    props: { ...content, allTags },
+    props: { ...content, allTags, slug: context.params.slug },
   }
 }
 
 const Post: NextPage<SlugProps> = (props) => {
+  const url = BASE_URL + "/posts" + "/" + props.slug
   return (
     <Layout tags={props.allTags}>
       <Head>
@@ -53,6 +56,7 @@ const Post: NextPage<SlugProps> = (props) => {
         published={props.published}
         tags={props.tags}
         content={props.content}
+        url={url}
       />
     </Layout>
   )
