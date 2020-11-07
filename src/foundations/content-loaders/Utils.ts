@@ -66,12 +66,22 @@ const readSummary = async (slug: string) => {
  * @param slugs
  */
 export const readSummaries = async (slugs: string[]) => {
-  const summaries: Summary[] = []
-  for (const slug of slugs) {
-    const summary = await readSummary(slug)
-    summaries.push(summary)
-  }
-  return summaries
+  return await Promise.all(slugs.map((slug) => readSummary(slug)))
+}
+
+/**
+ * 重複無しでTagを収集。readAllTagsで使うreducer
+ * @param baseTags
+ * @param targetTags
+ */
+const collectNoDuplicateTags = (baseTags: string[], targetTags: string[]) => {
+  const tags = [...baseTags]
+  targetTags.map((tag) => {
+    if (!tags.includes(tag)) {
+      tags.push(tag)
+    }
+  })
+  return tags
 }
 
 /**
@@ -80,15 +90,11 @@ export const readSummaries = async (slugs: string[]) => {
 export const readAllTags = async () => {
   const slugs = readSlugs()
   let tags: string[] = []
-  for (const slug of slugs) {
-    const mdInfo = await analyzeMarkdown(slug)
-    for (const tag of mdInfo.tags) {
-      if (!tags.includes(tag)) {
-        tags.push(tag)
-      }
-    }
-  }
-  return tags
+  //並行処理でファイル読み込み。I/Oがネックなら並行でいいはず。もしそうでないなら並列処理も検討する。
+  return (await Promise.all(slugs.map((slug) => analyzeMarkdown(slug)))).reduce(
+    (tags, mdInfo) => collectNoDuplicateTags(tags, mdInfo.tags),
+    []
+  )
 }
 
 /**
