@@ -2,8 +2,8 @@ import React from "react"
 import Head from "next/head"
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import {
-  listContentDirs,
   readAllTags,
+  readSlugs,
   readSummaries,
   Summary,
 } from "../../foundations/content-loaders/Utils"
@@ -29,7 +29,7 @@ const getTargetSlugs = (slugs: string[], pageNumber: string) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const slugs = listContentDirs()
+  const slugs = readSlugs()
   const maxPage = String(Math.ceil(slugs.length / ARTICLE_PER_PAGE))
   const pageNumbers = generateNumberArray(maxPage)
   const paths = pageNumbers.map((pageNumber) => ({
@@ -47,8 +47,9 @@ export const getStaticProps: GetStaticProps<
   { summaries: Summary[]; tags: string[] },
   { page: string }
 > = async (context) => {
-  const maxPage = Math.ceil(listContentDirs().length / ARTICLE_PER_PAGE)
-  const slugs = getTargetSlugs(listContentDirs(), context.params.page)
+  const allSlugs = readSlugs()
+  const maxPage = Math.ceil(allSlugs.length / ARTICLE_PER_PAGE)
+  const slugs = getTargetSlugs(allSlugs, context.params.page)
   const summaries = await readSummaries(slugs)
   const tags = await readAllTags()
   return {

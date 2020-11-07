@@ -2,26 +2,9 @@ import fs from "fs"
 import path from "path"
 import { DIR, ARTICLE_FILE_NAME } from "./Constants"
 import matter from "gray-matter"
-
-import unified from "unified"
-import remarkParse from "remark-parse"
-import remarkToRehype from "remark-rehype"
-import rehypeRaw from "rehype-raw"
-import rehypeHighlight from "rehype-highlight"
-import rehypeStringify from "rehype-stringify"
-
-import {
-  makeImagePathReplacer,
-  htmlAmpConverter,
-  headerRemover,
-} from "../unified-atatcher"
-
-import htmlToText from "html-to-text"
 import { formatDate } from "../date"
+import { extractSummaryFromMarkdown, markdownToAmpHtml } from "./MdConverter"
 
-export const readFile = (slug: string) => {
-  return fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
-}
 export type MarkDownInfo = {
   title: string
   published: Date
@@ -34,7 +17,12 @@ export type Summary = {
   summaryText: string
   path: string
 }
-export const toMatter = async (markdown: string) => {
+
+export const analyzeMarkdown = async (slug: string) => {
+  const markdown = fs.readFileSync(
+    path.join(DIR, slug, ARTICLE_FILE_NAME),
+    "utf8"
+  )
   const matterResult = matter(markdown)
   const mdInfo = <MarkDownInfo>matterResult.data
   const tags = mdInfo.tags.split(",").map((tag) => tag.trim())
@@ -46,37 +34,10 @@ export const toMatter = async (markdown: string) => {
   }
 }
 
-export const markdownToAmpHtml = async (slug: string, markdown: string) => {
-  const processer = unified()
-    .use(remarkParse)
-    .use(remarkToRehype, { allowDangerousHtml: true }) //Markdown内の生htmlを許容しながら変換
-    .use(rehypeRaw) //Markdown内にあった生htmlをデコード
-    .use(makeImagePathReplacer(slug)) //画像パスを変換
-    .use(headerRemover) //一つ目のh1を削除
-    .use(rehypeHighlight) //<code>のハイライトを有効
-    .use(htmlAmpConverter) //一部タグをamp仕様に変換
-    .use(rehypeStringify) //htmlを文字列に変換
-  const parsedContent = await processer.process(markdown)
-  const content = parsedContent.toString()
-  return content
-}
-export const markdownToHtml = async (markdown: string) => {
-  const processer = unified()
-    .use(remarkParse)
-    .use(remarkToRehype, { allowDangerousHtml: true })
-    .use(rehypeStringify)
-  const parsedContent = await processer.process(markdown)
-  const content = parsedContent.toString()
-  return content
-}
-
-export const extractSummaryFromHtml = (html: string) => {
-  const plainBody = htmlToText.fromString(html)
-  const summaryText = plainBody.substr(0, 120)
-  return summaryText
-}
-
-export const listContentDirs = () => {
+/**
+ * 全記事のフォルダ名を取得
+ */
+export const readSlugs = () => {
   const dirents = fs.readdirSync(DIR, { withFileTypes: true })
   return dirents
     .filter((dirent) => !dirent.isFile())
@@ -84,19 +45,26 @@ export const listContentDirs = () => {
     .sort()
 }
 
-export const readSummary = async (slug: string) => {
-  const raw = readFile(slug)
-  const mdInfo = await toMatter(raw)
-  const html = await markdownToHtml(mdInfo.content)
+/**
+ * 1記事の概要読み込み
+ * @param slug
+ */
+const readSummary = async (slug: string) => {
+  const mdInfo = await analyzeMarkdown(slug)
+  const summaryText = await extractSummaryFromMarkdown(mdInfo.content, 120)
   return {
     title: mdInfo.title,
     published: formatDate(mdInfo.published),
     tags: mdInfo.tags,
-    summaryText: extractSummaryFromHtml(html),
+    summaryText,
     path: path.join("/posts/" + slug),
   }
 }
 
+/**
+ * 指定したslugsの記事の概要を読み込み
+ * @param slugs
+ */
 export const readSummaries = async (slugs: string[]) => {
   const summaries: Summary[] = []
   for (const slug of slugs) {
@@ -106,12 +74,14 @@ export const readSummaries = async (slugs: string[]) => {
   return summaries
 }
 
+/**
+ * 全記事から全タグを読み込み
+ */
 export const readAllTags = async () => {
-  const slugs = listContentDirs()
+  const slugs = readSlugs()
   let tags: string[] = []
   for (const slug of slugs) {
-    const raw = readFile(slug)
-    const mdInfo = await toMatter(raw)
+    const mdInfo = await analyzeMarkdown(slug)
     for (const tag of mdInfo.tags) {
       if (!tags.includes(tag)) {
         tags.push(tag)
@@ -121,26 +91,16 @@ export const readAllTags = async () => {
   return tags
 }
 
-export const readContentFile = async ({
-  slug,
-  filename,
-}: {
-  slug: string
-  filename?: string
-}) => {
-  if (slug === undefined) {
-    slug = path.parse(filename).name
-  }
-
-  const raw = fs.readFileSync(path.join(DIR, slug, ARTICLE_FILE_NAME), "utf8")
-  const matterResult = matter(raw)
-  const { title, published: rawPublished, tags: tagsStr } = matterResult.data
-  const tags: string[] = tagsStr.split(",").map((tag) => tag.trim())
-  const parsedContent = await markdownToAmpHtml(slug, matterResult.content)
+/**
+ * 個別ページ読み込み
+ * @param param0
+ */
+export const readPage = async ({ slug }: { slug: string }) => {
+  const { title, published, tags, content } = await analyzeMarkdown(slug)
   return {
     title,
-    published: formatDate(rawPublished),
-    content: parsedContent,
+    published: formatDate(published),
+    content: await markdownToAmpHtml(slug, content),
     slug,
     tags,
   }

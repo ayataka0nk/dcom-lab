@@ -4,15 +4,15 @@ import { GetStaticProps, NextPage } from "next"
 import { ArticleCard } from "../components/article"
 import { Layout } from "../layout"
 import {
-  listContentDirs,
   readAllTags,
+  readSlugs,
   readSummaries,
   Summary,
 } from "../foundations/content-loaders/Utils"
 import { useRouter } from "next/router"
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const slugs = await listContentDirs()
+  const slugs = readSlugs()
   const summaries = await readSummaries(slugs)
   const tags = await readAllTags()
   return {

@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next"
 import path from "path"
 import {
-  listContentDirs,
-  readContentFile,
   readAllTags,
+  readPage,
+  readSlugs,
 } from "../../foundations/content-loaders/Utils"
 import { Layout } from "../../layout"
 import Head from "next/head"
@@ -13,7 +13,7 @@ export const config = {
   amp: true,
 }
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const paths = listContentDirs().map((dirname) => ({
+  const paths = readSlugs().map((dirname) => ({
     params: {
       slug: path.parse(dirname).name,
     },
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps<
   SlugProps,
   { slug: string }
 > = async (context) => {
-  const content = await readContentFile({ slug: context.params.slug })
+  const content = await readPage({ slug: context.params.slug })
   const allTags = await readAllTags()
   return {
     props: { ...content, allTags },
