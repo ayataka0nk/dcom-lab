@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { DIR, ARTICLE_FILE_NAME } from "./Constants"
+import { POSTS_DIR, ARTICLE_FILE_NAME } from "./Constants"
 import matter from "gray-matter"
 import { formatDate } from "../date"
 import { extractSummaryFromMarkdown, markdownToAmpHtml } from "./MdConverter"
@@ -20,7 +20,7 @@ export type Summary = {
 
 export const analyzeMarkdown = async (slug: string) => {
   const markdown = fs.readFileSync(
-    path.join(DIR, slug, ARTICLE_FILE_NAME),
+    path.join(POSTS_DIR, slug, ARTICLE_FILE_NAME),
     "utf8"
   )
   const matterResult = matter(markdown)
@@ -38,7 +38,7 @@ export const analyzeMarkdown = async (slug: string) => {
  * 全記事のフォルダ名を取得
  */
 export const readSlugs = () => {
-  const dirents = fs.readdirSync(DIR, { withFileTypes: true })
+  const dirents = fs.readdirSync(POSTS_DIR, { withFileTypes: true })
   return dirents
     .filter((dirent) => !dirent.isFile())
     .map((dirent) => dirent.name)

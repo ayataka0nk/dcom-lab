@@ -33,7 +33,7 @@ const convertCode = (node: Node, dirName: string) => {
     if (src.slice(0, 2) === "./") {
       src = src.slice(2)
     }
-    src = src.replace("images/", "/articleImages/" + dirName + "/")
+    src = src.replace("images/", "/posts/" + dirName + "/images/")
     node.properties.src = src
     return node
   }
