@@ -49,6 +49,7 @@ const Post: NextPage<SlugProps> = (props) => {
   return (
     <Layout tags={props.allTags}>
       <Head>
+        <link rel="canonical" href={url} />
         <title>{props.title}</title>
       </Head>
       <Article

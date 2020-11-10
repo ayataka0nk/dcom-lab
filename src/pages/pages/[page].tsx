@@ -10,6 +10,7 @@ import {
 import { ArticleCard } from "../../components/article"
 import { Layout } from "../../layout"
 import { PagingLink } from "../../components/paging"
+import { BASE_URL } from "../../foundations/Constants"
 
 export const config = {
   amp: true,
@@ -68,9 +69,11 @@ const Page: NextPage<{
   page: string
   maxPage: string
 }> = (props) => {
+  const url = BASE_URL + "/pages/" + props.page
   return (
     <Layout tags={props.tags}>
       <Head>
+        <link rel="canonical" href={url} />
         <title>デーコムラボサンプル</title>
       </Head>
       {props.summaries.map((summary, index) => (

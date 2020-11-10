@@ -10,6 +10,7 @@ import {
   Summary,
 } from "../foundations/content-loaders/Utils"
 import { useRouter } from "next/router"
+import { BASE_URL } from "../foundations/Constants"
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const slugs = readSlugs()
@@ -29,9 +30,11 @@ const Tags: NextPage<{
   if (typeof router.query.tag === "string") {
     tag = router.query.tag
   }
+  const url = BASE_URL + "/tag?tag=" + tag
   return (
     <Layout tags={props.tags}>
       <Head>
+        <link rel="canonical" href={url} />
         <title>デーコムラボ　サンプル</title>
       </Head>
       <div className="root">
