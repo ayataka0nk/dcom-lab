@@ -11,8 +11,8 @@ export const ArticleTags: React.FC<{
       <AmpImage
         src="/images/icon-tag.svg"
         alt="icon-tag"
-        height="17px"
-        width="17px"
+        height="19px"
+        width="19px"
       />
       {props.tags.map((tag, index) => (
         <Link key={index} href={`/tag?tag=${tag}`} passHref>
@@ -37,8 +37,8 @@ export const ArticleTags: React.FC<{
             background-color: #4999a1;
             margin: 3px;
             padding: 4px 4px 3px 4px;
-            font-size: 13px;
-            line-height: 13px;
+            font-size: 15px;
+            line-height: 15px;
             color: #ffffff;
           }
           a {
