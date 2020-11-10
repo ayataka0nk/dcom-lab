@@ -49,7 +49,7 @@ export const readSlugs = () => {
  * 1記事の概要読み込み
  * @param slug
  */
-const readSummary = async (slug: string) => {
+export const readSummary = async (slug: string) => {
   const mdInfo = await analyzeMarkdown(slug)
   const summaryText = await extractSummaryFromMarkdown(mdInfo.content, 120)
   return {

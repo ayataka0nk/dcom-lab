@@ -70,11 +70,21 @@ const Page: NextPage<{
   maxPage: string
 }> = (props) => {
   const url = BASE_URL + "/pages/" + props.page
+  const description = props.summaries.reduce((prev, summary) => {
+    const tags = summary.tags.reduce(
+      (prevTag, currentTag) => prevTag + ", " + currentTag
+    )
+    return prev + summary.title + ":" + tags + "|"
+  }, "")
   return (
     <Layout tags={props.tags}>
       <Head>
         <link rel="canonical" href={url} />
         <title>デーコムラボサンプル</title>
+        <meta
+          name="description"
+          content={"株式会社デーコム 技術ブログ " + description}
+        />
       </Head>
       {props.summaries.map((summary, index) => (
         <ArticleCard
