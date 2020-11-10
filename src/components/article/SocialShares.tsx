@@ -10,9 +10,10 @@ export const SocialShares: React.FC<SocialSharesProps> = (props) => {
         aria-label="Share on Facebook"
         data-param-app_id="145634995501895"
       />
-      <amp-social-share type="twitter" />
+      <amp-social-share type="twitter" aria-label="Share on Twitter" />
       <amp-social-share
         type="hatena_bookmark"
+        aria-label="Share on Hatena"
         layout="container"
         data-share-endpoint={`http://b.hatena.ne.jp/entry/${props.url}`}
       >
@@ -20,6 +21,7 @@ export const SocialShares: React.FC<SocialSharesProps> = (props) => {
       </amp-social-share>
       <amp-social-share
         type="pocket"
+        aria-label="Share on Pocket"
         layout="container"
         data-share-endpoint="http://getpocket.com/edit?url=SOURCE_URL"
       ></amp-social-share>
