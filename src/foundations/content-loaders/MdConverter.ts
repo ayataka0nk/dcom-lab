@@ -33,6 +33,8 @@ export const extractSummaryFromMarkdown = async (
   const processer = unified()
     .use(remarkParse)
     .use(remarkToRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw) //Markdown内にあった生htmlをデコード
+    .use(headerRemover) //一つ目のh1を削除
     .use(rehypeStringify)
   const parsedContent = await processer.process(markdown)
   const content = parsedContent.toString()
