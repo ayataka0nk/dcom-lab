@@ -5,7 +5,12 @@ export const GoogleSearch: React.FC = () => {
     <div className="google-search">
       <form id="cse-search-box" action="https://google.com/cse" target="_blank">
         <button className="submit-button" type="submit" name="sa">
-          <AmpImage src="/images/search-solid.svg" width="13px" height="13px" />
+          <AmpImage
+            src="/images/search-solid.svg"
+            alt="search-solid"
+            width="13px"
+            height="13px"
+          />
         </button>
         <input type="hidden" name="cx" value="cd0da1054f762f7ae" />
         <input type="hidden" name="ie" value="UTF-8" />

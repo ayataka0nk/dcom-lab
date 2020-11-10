@@ -6,7 +6,12 @@ export const PageHeader = () => {
     <header>
       <div className="header-logo">
         <a href="/pages/1">
-          <AmpImage src="/images/logo.png" width="360px" height="117px" />
+          <AmpImage
+            src="/images/logo.png"
+            alt="デーコムロゴ"
+            width="360px"
+            height="117px"
+          />
         </a>
       </div>
 

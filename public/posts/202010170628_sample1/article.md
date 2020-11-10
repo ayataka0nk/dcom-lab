@@ -15,8 +15,8 @@ tags: IIS,Webサーバ,ツール
 - foo
 - bar
 
-<img src="./images/React-icon.svg" width="100px" height="100px">
-<img src="./images/sample.png">
+<img src="./images/React-icon.svg" width="100px" height="100px" alt="react-icon">
+<img src="./images/sample.png" alt="sample">
 
 ![ImageSample](./images/React-icon.svg)
 

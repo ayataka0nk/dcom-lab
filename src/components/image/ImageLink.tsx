@@ -5,6 +5,7 @@ type ImageLinkProps = {
   imageSrc: string
   imageWidth: string
   imageHeight: string
+  imageAlt: string
   href: string
   padding?: string
   margin?: string
@@ -16,6 +17,7 @@ export const ImageLink: React.FC<ImageLinkProps> = (props) => {
       <a href={props.href}>
         <AmpImage
           src={props.imageSrc}
+          alt={props.imageAlt}
           width={props.imageWidth}
           height={props.imageHeight}
         />

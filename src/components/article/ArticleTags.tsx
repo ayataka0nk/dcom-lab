@@ -8,7 +8,12 @@ export const ArticleTags: React.FC<{
 }> = React.memo((props) => {
   return (
     <div className="article-tags">
-      <AmpImage src="/images/icon-tag.svg" height="15px" width="15px" />
+      <AmpImage
+        src="/images/icon-tag.svg"
+        alt="icon-tag"
+        height="15px"
+        width="15px"
+      />
       <label>tags:</label>
       {props.tags.map((tag, index) => (
         <React.Fragment key={index}>
