@@ -8,7 +8,7 @@ export const GoogleSearch: React.FC = () => {
           <AmpImage
             src="/images/search-solid.svg"
             alt="search-solid"
-            width="13px"
+            width="50px"
             height="13px"
           />
         </button>
