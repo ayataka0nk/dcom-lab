@@ -9,10 +9,10 @@ export const Layout: React.FC<{ tags: string[] }> = (props) => {
       <TopBar />
       <div className="body">
         <PageHeader />
-        <div className="midbox">
+        <main className="midbox">
           <div className="content">{props.children}</div>
           <Navigation tags={props.tags} width="300px" margin="0 0 0 40px" />
-        </div>
+        </main>
       </div>
       <style jsx global>
         {GlobalStyles}
